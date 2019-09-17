@@ -7,8 +7,8 @@ Wall mur;
 void setup() {
   fullScreen();
   frameRate(60);
-  tank1 = new Tank(new PVector((width*2)/3, (height*2)/3));
-  tank2 = new Tank(new PVector(width/3, height/3));
+  tank1 = new Tank(new PVector((width*2)/3, (height*2)/3), 600);
+  tank2 = new Tank(new PVector(width/3, height/3), 600);
   skudList = new ArrayList<Skud>();
   ts = new Tscreen();
   mur = new Wall(new PVector(10,10), new PVector(0,height-20));
@@ -24,6 +24,7 @@ void draw() {
       tank1.render();
       fill(0, 255, 0);
       tank2.render();
+      tank1.lifespan();
   
       for (int i = 0; i < skudList.size(); i++) {
         skudList.get(i).shotMoving();

@@ -2,10 +2,12 @@ class Tank {
   
   PVector dir, pos, vel;
   float angle, rad, force = 0.3, rotationForce = PI/42;
+  int life;
   boolean up, left, right, down;
   PVector[] points = new PVector[8];
   
-  Tank(PVector pos) {
+  Tank(PVector pos, int life) {
+    this.life = life;
     this.pos = pos;
     rad = height/25;
     vel = new PVector();
@@ -96,5 +98,18 @@ class Tank {
   
   void shoot() {
     skudList.add(new Skud(new PVector(this.pos.x, this.pos.y), new PVector(dir.x, dir.y)));
+  }
+  
+  void lifespan() {
+    fill(255, 50, 50);
+    if (life > 0) {
+      strokeWeight(4);
+      rectMode(CORNER);
+      rect(width/18, height/10, life/2, 25);
+      life--;
+    }
+    textSize(32);
+    fill(0);
+    text("Lifespan", width/18, height/10-25);
   }
 }
