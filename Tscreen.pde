@@ -6,6 +6,20 @@ class Tscreen {
       gamestate = 1;
     }
   };
+  
+  Button setting = new Button(width/2-width/6, height/3, width/3, height/8) {
+    @Override
+      public void action() {
+      gamestate = 2;
+    }
+  };
+  
+  Button escape = new Button(width-width/8-10, height-height/10-10, width/8, height/10) {
+    @Override
+      public void action() {
+      gamestate = 0;
+    }
+  };
 
   Tscreen() {
   }
@@ -15,5 +29,21 @@ class Tscreen {
     fill(160);
     game1pvp.display();
     game1pvp.pressed();
+    
+    setting.display();
+    setting.pressed();
+  }
+  
+  void displaysettings(){
+    background(100,200,200);
+    fill(160);
+  }
+  
+  void escape(){
+    pushMatrix();
+    fill(160);
+    escape.display();
+    escape.pressed();
+    popMatrix();
   }
 }

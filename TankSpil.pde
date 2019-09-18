@@ -2,6 +2,7 @@ Tank tank1, tank2;
 ArrayList<Skud> skudList;
 int gamestate = 0;
 Tscreen ts;
+Settings sett;
 ArrayList<Wall> mure;
 Block b1;
 
@@ -12,43 +13,51 @@ void setup() {
   tank2 = new Tank(new PVector(width/3, height/3), 3000, width-width/10-300, "Player 2");
   skudList = new ArrayList<Skud>();
   ts = new Tscreen();
+  sett = new Settings();
   mure = new ArrayList<Wall>();
   b1 = new Block(150, 150, width-150, height-150);
-  mure.add(new Wall(new PVector(150,150), new PVector(0,height-300)));
-  mure.add(new Wall(new PVector(150,150), new PVector(width-300,0)));
-  mure.add(new Wall(new PVector(150,height-150), new PVector(width-300,0)));
-  mure.add(new Wall(new PVector(width-150,150), new PVector(0,height-300)));
+  mure.add(new Wall(new PVector(150, 150), new PVector(0, height-300)));
+  mure.add(new Wall(new PVector(150, 150), new PVector(width-300, 0)));
+  mure.add(new Wall(new PVector(150, height-150), new PVector(width-300, 0)));
+  mure.add(new Wall(new PVector(width-150, 150), new PVector(0, height-300)));
 }
 
 void draw() {
   switch (gamestate) {
-    case 1:
-      background(255);
-      tank1.update();
-      tank2.update();
-      fill(255, 0, 0);
-      tank1.render();
-      fill(0, 255, 0);
-      tank2.render();
-      tank1.lifespan();
-      tank2.lifespan();
-  
-      for (int i = 0; i < skudList.size(); i++) {
-        skudList.get(i).shotMoving();
+  case 1:
+    background(255);
+    tank1.update();
+    tank2.update();
+    fill(255, 0, 0);
+    tank1.render();
+    fill(0, 255, 0);
+    tank2.render();
+    tank1.lifespan();
+    tank2.lifespan();
+    ts.escape();
+
+    for (int i = 0; i < skudList.size(); i++) {
+      skudList.get(i).shotMoving();
+    }
+    for (int i = skudList.size(); i > 0; i--) {
+      if (skudList.get(i-1).dead) {
+        skudList.remove(i-1);
       }
-      for (int i = skudList.size(); i > 0; i--) {
-        if (skudList.get(i-1).dead) {
-          skudList.remove(i-1);
-        }
-      }
-      for (int i = 0; i < mure.size(); i++) {
-        mure.get(i).render();
-      }
-      break;
-    case 0:
-      ts.display();
-      
-      break;
+    }
+    for (int i = 0; i < mure.size(); i++) {
+      mure.get(i).render();
+    }
+    break;
+
+  case 2:
+    ts.displaysettings();
+    ts.escape();
+    break;
+
+  case 0:
+    ts.display();
+
+    break;
   }
 }
 
