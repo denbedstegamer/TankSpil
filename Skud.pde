@@ -45,8 +45,6 @@ class Skud {
           P1 = nextPos(points[i].copy().add(pos.copy()));
           if (P1.y > w.pos.y && P1.y < w.pos.y+w.dir.y) {
             if ((Wn.copy().dot(P0.copy().sub(W0.copy())) > 0 && Wn.copy().dot(P1.copy().sub(W0.copy())) < 0) || (Wn.copy().dot(P0.copy().sub(W0.copy())) < 0 && Wn.copy().dot(P1.copy().sub(W0.copy())) > 0)) {
-              /*pos.x += w.pos.x-P1.x;
-               vel.x = 0;*/
               float distTravveled = P0.x-w.pos.x, distNeedsToTravel = vel.x-distTravveled;
               pos.x += w.pos.x-P1.x;
               pos.x -= distNeedsToTravel;
@@ -56,18 +54,16 @@ class Skud {
           }
         }
       }
-      if(Wn.copy().normalize().x == -1 || Wn.copy().normalize().x == 1) {
+      if(Wn.copy().normalize().y == -1 || Wn.copy().normalize().y == 1) {
         for (int i = 0; i <= 3; i++) {
           P0 = points[i].copy().add(pos.copy());
           P1 = nextPos(points[i].copy().add(pos.copy()));
-          if (P1.y > w.pos.y && P1.y < w.pos.y+w.dir.y) {
+          if (P1.x > w.pos.x && P1.x < w.pos.x+w.dir.x) {
             if ((Wn.copy().dot(P0.copy().sub(W0.copy())) > 0 && Wn.copy().dot(P1.copy().sub(W0.copy())) < 0) || (Wn.copy().dot(P0.copy().sub(W0.copy())) < 0 && Wn.copy().dot(P1.copy().sub(W0.copy())) > 0)) {
-              /*pos.x += w.pos.x-P1.x;
-               vel.x = 0;*/
-              float distTravveled = P0.x-w.pos.x, distNeedsToTravel = vel.x-distTravveled;
-              pos.x += w.pos.x-P1.x;
-              pos.x -= distNeedsToTravel;
-              vel.x *= -1;
+              float distTravveled = P0.y-w.pos.y, distNeedsToTravel = vel.y-distTravveled;
+              pos.y += w.pos.y-P1.y;
+              pos.y -= distNeedsToTravel;
+              vel.y *= -1;
               hasCol = true;
             }
           }
