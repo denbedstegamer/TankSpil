@@ -4,6 +4,8 @@ Settings sett;
 Game g;
 ArrayList<Skud> skudList;
 ArrayList<Wall> mure;
+ArrayList<Tank> tankList;
+ArrayList<Block> blockList;
 
 void setup() {
   fullScreen();
@@ -46,64 +48,64 @@ void draw() {
 void keyPressed() {
   if (key == CODED) {
     if (keyCode == UP) {
-      g.tank1.up = true;
+      tankList.get(0).up = true;
     }
     if (keyCode == LEFT) {
-      g.tank1.left = true;
+      tankList.get(0).left = true;
     }
     if (keyCode == RIGHT) {
-      g.tank1.right = true;
+      tankList.get(0).right = true;
     }
     if (keyCode == DOWN) {
-      g.tank1.down = true;
+      tankList.get(0).down = true;
     }
   }
   if (key == 'm' || key == 'M') {
-    g.tank1.shoot();
+    tankList.get(0).shoot();
   }
   if (key == 'c' || key == 'C') {
-    g.tank2.shoot();
+    tankList.get(1).shoot();
   }
   if (key == 'w' || key == 'W') {
-    g.tank2.up = true;
+    tankList.get(1).up = true;
   }
   if (key == 's' || key == 'S') {
-    g.tank2.down = true;
+    tankList.get(1).down = true;
   }
   if (key == 'a' || key == 'A') {
-    g.tank2.left = true;
+    tankList.get(1).left = true;
   }
   if (key == 'd' || key == 'D') {
-    g.tank2.right = true;
+    tankList.get(1).right = true;
   }
 }
 
 void keyReleased() {
   if (key == CODED) {
     if (keyCode == UP) {
-      g.tank1.up = false;
+      tankList.get(0).up = false;
     }
     if (keyCode == LEFT) {
-      g.tank1.left = false;
+      tankList.get(0).left = false;
     }
     if (keyCode == RIGHT) {
-      g.tank1.right = false;
+      tankList.get(0).right = false;
     }
     if (keyCode == DOWN) {
-      g.tank1.down = false;
+      tankList.get(0).down = false;
     }
   }
 
   if (key == 'w' || key == 'W') {
-    g.tank2.up = false;
+    tankList.get(1).up = false;
   }
   if (key == 's' || key == 'S') {
-    g.tank2.down = false;
+    tankList.get(1).down = false;
   }
   if (key == 'a' || key == 'A') {
-    g.tank2.left = false;
+    tankList.get(1).left = false;
   }
   if (key == 'd' || key == 'D') {
-    g.tank2.right = false;
+    tankList.get(1).right = false;
   }
 }

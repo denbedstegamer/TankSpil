@@ -22,11 +22,11 @@ class Skud {
     if (!hasCol) {
       pos = nextPos(pos);
     }
-    if (shotPlayer(g.tank1)) {
-      g.tank1.life = 0;
+    if (shotPlayer(tankList.get(0))) {
+      tankList.get(0).life = 0;
     }
-    if (shotPlayer(g.tank2)) {
-      g.tank2.life = 0;
+    if (shotPlayer(tankList.get(1))) {
+      tankList.get(1).life = 0;
     }
     life++;
     if (life >= 180) {
