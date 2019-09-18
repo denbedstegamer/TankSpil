@@ -12,10 +12,10 @@ void setup() {
   skudList = new ArrayList<Skud>();
   ts = new Tscreen();
   mure = new ArrayList<Wall>();
-  mure.add(new Wall(new PVector(250,250), new PVector(0,height-500)));
-  mure.add(new Wall(new PVector(250,250), new PVector(width-500,0)));
-  mure.add(new Wall(new PVector(250,height-250), new PVector(width-500,0)));
-  mure.add(new Wall(new PVector(width-250,250), new PVector(0,height-500)));
+  mure.add(new Wall(new PVector(150,150), new PVector(0,height-300)));
+  mure.add(new Wall(new PVector(150,150), new PVector(width-300,0)));
+  mure.add(new Wall(new PVector(150,height-150), new PVector(width-300,0)));
+  mure.add(new Wall(new PVector(width-150,150), new PVector(0,height-300)));
 }
 
 void draw() {
