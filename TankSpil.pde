@@ -7,8 +7,8 @@ ArrayList<Wall> mure;
 void setup() {
   fullScreen();
   frameRate(60);
-  tank1 = new Tank(new PVector((width*2)/3, (height*2)/3), 600);
-  tank2 = new Tank(new PVector(width/3, height/3), 600);
+  tank1 = new Tank(new PVector((width*2)/3, (height*2)/3), 3000, width/18, "Player 1");
+  tank2 = new Tank(new PVector(width/3, height/3), 3000, width-width/10-300, "Player 2");
   skudList = new ArrayList<Skud>();
   ts = new Tscreen();
   mure = new ArrayList<Wall>();
@@ -29,6 +29,7 @@ void draw() {
       fill(0, 255, 0);
       tank2.render();
       tank1.lifespan();
+      tank2.lifespan();
   
       for (int i = 0; i < skudList.size(); i++) {
         skudList.get(i).shotMoving();

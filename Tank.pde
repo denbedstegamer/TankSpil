@@ -1,13 +1,17 @@
 class Tank {
 
   PVector dir, pos, vel;
-  int life;
+  int life, lifeBarX, startLife;
+  String lifeBarNavn;
   float angle, rad, force = 0.3, rotationForce = PI/42;
   boolean up, left, right, down, hasCol;
   PVector[] points = new PVector[8];
 
-  Tank(PVector pos, int life) {
+  Tank(PVector pos, int life, int lifeBarX, String lifeBarNavn) {
     this.life = life;
+    startLife = life;
+    this.lifeBarX = lifeBarX;
+    this.lifeBarNavn = lifeBarNavn;
     this.pos = pos;
     rad = height/25;
     vel = new PVector();
@@ -175,16 +179,24 @@ class Tank {
   }
   
   void lifespan() {
-    fill(255, 50, 50);
-    if (life > 0) {
-      strokeWeight(4);
-      rectMode(CORNER);
-      rect(width/18, height/10, life/2, 25);
-      life--;
-    }
+    int lifePercentage;
+    String currentLife;
+    fill(255);
+    strokeWeight(4);
+    rectMode(CORNER);
+    rect(lifeBarX, height/10, (startLife*300)/startLife, 25);
+    strokeWeight(0);
     textSize(32);
     fill(0);
-    text("Lifespan", width/18, height/10-25);
+    text(lifeBarNavn, lifeBarX, height/10-25);
     strokeWeight(1);
+    lifePercentage = floor(life/(startLife/100));
+    currentLife = lifePercentage + "%";
+    text(currentLife, lifeBarX+(startLife*300)/startLife+25, height/10+25);
+    fill(255, 50, 50);
+    if (life > 0) {
+      rect(lifeBarX, height/10, (life*300)/startLife, 25);
+      life--;
+    }
   }
 }
