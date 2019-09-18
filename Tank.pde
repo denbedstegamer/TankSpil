@@ -5,7 +5,8 @@ class Tank {
   String lifeBarNavn;
   float angle, rad, force = 0.3, rotationForce = PI/42;
   boolean up, left, right, down, hasCol;
-  PVector[] points = new PVector[8];
+  PVector[] points = new PVector[16];
+  /*Wall[] sider;*/
 
   Tank(PVector pos, int life, int lifeBarX, String lifeBarNavn) {
     this.life = life;
@@ -24,6 +25,19 @@ class Tank {
     points[5] = new PVector(rad/2, 0);
     points[6] = new PVector(0, rad/2);
     points[7] = new PVector(-rad/2, 0);
+    points[8] = new PVector(rad/4, -rad/2);
+    points[9] = new PVector(rad/2, rad/4);
+    points[10] = new PVector(rad/4, rad/2);
+    points[11] = new PVector(-rad/2, rad/4);
+    points[12] = new PVector(-rad/4, -rad/2);
+    points[13] = new PVector(rad/2, -rad/4);
+    points[14] = new PVector(-rad/4, rad/2);
+    points[15] = new PVector(-rad/2, -rad/4);
+    /*sider = new Wall[4];
+    sider[0] = new Wall(points[0].copy(), new PVector(points[1].copy().sub(points[0]).x, points[1].copy().sub(points[0]).y));
+    sider[1] = new Wall(points[1].copy(), new PVector(points[2].copy().sub(points[1]).x, points[2].copy().sub(points[1]).y));
+    sider[2] = new Wall(points[2].copy(), new PVector(points[3].copy().sub(points[2]).x, points[3].copy().sub(points[2]).y));
+    sider[3] = new Wall(points[3].copy(), new PVector(points[0].copy().sub(points[3]).x, points[0].copy().sub(points[3]).y));*/
   }
 
   void render() {
@@ -34,8 +48,11 @@ class Tank {
     rect(0, 0, rad, rad);
     line(0, 0, rad/2, 0);
     popMatrix();
-    /*for (int i = 0; i <= 7; i++) {
-      ellipse(points[i].x+pos.x, points[i].y+pos.y, 3, 3);
+    /*for (int i = 0; i <= 15; i++) {
+     ellipse(points[i].x+pos.x, points[i].y+pos.y, 3, 3);
+     }*/
+    /*for (int i = 0; i <= 3; i++) {
+      line(sider[i].pos.x+pos.x, sider[i].pos.y+pos.y, sider[i].pos.x+sider[i].dir.x+pos.x, sider[i].pos.y+sider[i].dir.y+pos.y);
     }*/
   }
 
@@ -45,14 +62,14 @@ class Tank {
       if (left) {
         dir.rotate(-rotationForce);
         angle -= rotationForce;
-        for (int j = 0; j <= 7; j++) {
+        for (int j = 0; j <= 15; j++) {
           points[j].rotate((-rotationForce));
         }
       }
       if (right) {
         dir.rotate(rotationForce);
         angle += rotationForce;
-        for (int j = 0; j <= 7; j++) {
+        for (int j = 0; j <= 15; j++) {
           points[j].rotate((rotationForce));
         }
       }
@@ -69,6 +86,10 @@ class Tank {
     if (!hasCol) {
       pos = nextPos(pos);
     }
+    /*sider[0] = new Wall(points[0].copy(), new PVector(points[1].copy().sub(points[0]).x, points[1].copy().sub(points[0]).y));
+    sider[1] = new Wall(points[1].copy(), new PVector(points[2].copy().sub(points[1]).x, points[2].copy().sub(points[1]).y));
+    sider[2] = new Wall(points[2].copy(), new PVector(points[3].copy().sub(points[2]).x, points[3].copy().sub(points[2]).y));
+    sider[3] = new Wall(points[3].copy(), new PVector(points[0].copy().sub(points[3]).x, points[0].copy().sub(points[3]).y));*/
   }
 
   PVector nextPos(PVector pos) {
@@ -98,7 +119,7 @@ class Tank {
       w = mure.get(m);
       PVector P0, P1 = new PVector(), W0 = w.pos.copy(), Wn = w.norm.copy();
       if (Wn.copy().normalize().x == -1 || Wn.copy().normalize().x == 1) {
-        for (int i = 0; i <= 7; i++) {
+        for (int i = 0; i <= 15; i++) {
           P0 = points[i].copy().add(pos.copy());
           if (left) {
             P1 = points[i].copy().rotate(-rotationForce).add(pos.copy());
@@ -114,7 +135,7 @@ class Tank {
           }
         }
       } else {
-        for (int i = 0; i <= 7; i++) {
+        for (int i = 0; i <= 15; i++) {
           P0 = points[i].copy().add(pos.copy());
           if (left) {
             P1 = points[i].copy().rotate(-rotationForce).add(pos.copy());
@@ -147,7 +168,7 @@ class Tank {
       w = mure.get(m);
       PVector P0, P1 = new PVector(), W0 = w.pos.copy(), Wn = w.norm.copy();
       if (Wn.copy().normalize().x == -1 || Wn.copy().normalize().x == 1) {
-        for (int i = 0; i <= 7; i++) {
+        for (int i = 0; i <= 15; i++) {
           P0 = points[i].copy().add(pos.copy());
           P1 = nextPos(points[i].copy().add(pos.copy()));
           if (P1.y > w.pos.y && P1.y < w.pos.y+w.dir.y) {
@@ -159,7 +180,7 @@ class Tank {
           }
         }
       } else {
-        for (int i = 0; i <= 7; i++) {
+        for (int i = 0; i <= 15; i++) {
           P0 = points[i].copy().add(pos.copy());
           P1 = nextPos(points[i].copy().add(pos.copy()));
           if (P1.x > w.pos.x && P1.x < w.pos.x+w.dir.x) {
@@ -175,9 +196,10 @@ class Tank {
   }
 
   void shoot() {
+    //skudList.add(new Skud(new PVector(this.pos.x + dir.copy().setMag(rad+height/120).x, this.pos.y + dir.copy().setMag(rad+height/120).y), new PVector(dir.x, dir.y)));
     skudList.add(new Skud(new PVector(this.pos.x, this.pos.y), new PVector(dir.x, dir.y)));
   }
-  
+
   void lifespan() {
     int lifePercentage;
     String currentLife;
