@@ -40,7 +40,6 @@ class Tscreen {
     text("Player vs Player", width/2-width/16, height/4);
     
     textSize(32);
-    textMode(CORNER);
     fill(0);
     text("Settings", width/2-width/24, height/3+height/16);
   }
@@ -51,7 +50,6 @@ class Tscreen {
     escape.pressed();
     
     textSize(32);
-    textMode(CORNER);
     fill(0);
     text("Escape", width-width/10, height-height/20);
     

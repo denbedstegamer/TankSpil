@@ -36,6 +36,10 @@ void draw() {
     sett.controls();
     ts.escape();
     break;
+    
+  case 5:
+    sett.colors();
+    break;
   }
 }
 

@@ -15,6 +15,14 @@ class Button{
        popMatrix();
    }
    
+   void display(int r,int g, int b){
+       pushMatrix();
+       rectMode(CORNER);
+       fill(r, g, b);
+       rect(posx, posy, sizex, sizey);
+       popMatrix();
+   }
+   
    void pressed(){
       if(mousePressed==true && mouseX > posx && mouseX < posx +sizex && mouseY > posy && mouseY < posy +sizey){
          action();
