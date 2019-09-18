@@ -130,11 +130,15 @@ class Skud {
     PVector w;
     for (int m = 0; m <= 15; m++) {
       w = t.points[m];
-      if(dist(w.x+t.pos.x, w.y+t.pos.y, pos.x, pos.y) < rad/2 && life > 7){
+      if(dist(w.x+t.pos.x, w.y+t.pos.y, pos.x, pos.y) < rad/2){
         life = 1000;
         return true;
       }
     }
+      if(dist(t.pos.x, t.pos.y, pos.x, pos.y) < rad/2){
+        life = 1000;
+        return true;
+      }
     return false;
   }
   

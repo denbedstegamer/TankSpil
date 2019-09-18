@@ -196,8 +196,8 @@ class Tank {
   }
 
   void shoot() {
-    //skudList.add(new Skud(new PVector(this.pos.x + dir.copy().setMag(rad+height/120).x, this.pos.y + dir.copy().setMag(rad+height/120).y), new PVector(dir.x, dir.y)));
-    skudList.add(new Skud(new PVector(this.pos.x, this.pos.y), new PVector(dir.x, dir.y)));
+    skudList.add(new Skud(new PVector(this.pos.x + dir.copy().setMag(rad/2+height/120).x, this.pos.y + dir.copy().setMag(rad/2+height/120).y), new PVector(dir.x, dir.y)));
+    //skudList.add(new Skud(new PVector(this.pos.x, this.pos.y), new PVector(dir.x, dir.y)));
   }
 
   void lifespan() {
