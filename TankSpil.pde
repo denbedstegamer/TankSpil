@@ -37,7 +37,7 @@ void draw() {
     ts.escape();
 
     for (int i = 0; i < skudList.size(); i++) {
-      skudList.get(i).shotMoving();
+      skudList.get(i).update();
     }
     for (int i = skudList.size(); i > 0; i--) {
       if (skudList.get(i-1).dead) {
