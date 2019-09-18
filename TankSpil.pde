@@ -2,7 +2,7 @@ Tank tank1, tank2;
 ArrayList<Skud> skudList;
 int gamestate = 0;
 Tscreen ts;
-Wall mur;
+ArrayList<Wall> mure;
 
 void setup() {
   fullScreen();
@@ -11,7 +11,11 @@ void setup() {
   tank2 = new Tank(new PVector(width/3, height/3), 600);
   skudList = new ArrayList<Skud>();
   ts = new Tscreen();
-  mur = new Wall(new PVector(10,10), new PVector(0,height-20));
+  mure = new ArrayList<Wall>();
+  mure.add(new Wall(new PVector(250,250), new PVector(0,height-500)));
+  mure.add(new Wall(new PVector(250,250), new PVector(width-500,0)));
+  mure.add(new Wall(new PVector(250,height-250), new PVector(width-500,0)));
+  mure.add(new Wall(new PVector(width-250,250), new PVector(0,height-500)));
 }
 
 void draw() {
@@ -34,7 +38,9 @@ void draw() {
           skudList.remove(i-1);
         }
       }
-      mur.render();
+      for (int i = 0; i < mure.size(); i++) {
+        mure.get(i).render();
+      }
       break;
     case 0:
       ts.display();

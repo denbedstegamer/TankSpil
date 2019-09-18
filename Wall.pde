@@ -2,9 +2,9 @@ class Wall{
   PVector pos, dir, norm;
   
   Wall(PVector pos, PVector dir){
-    this.pos = pos;
-    this.dir = dir;
-    norm = dir.copy().rotate(PI/2);
+    this.pos = pos.copy();
+    this.dir = dir.copy();
+    norm = this.dir.copy().normalize().rotate(-PI/2);
   }
   
   void render(){
