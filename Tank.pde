@@ -3,12 +3,19 @@ class Tank {
   PVector dir, pos, vel;
   int life, lifeBarX, startLife, r, g, b;
   String lifeBarNavn;
-  float angle, rad, force = 0.3, rotationForce = PI/42;
+  float angle, rad, force, rotationForce = PI/42;
   boolean up, left, right, down, hasCol;
   PVector[] points = new PVector[16];
   /*Wall[] sider;*/
 
-  Tank(PVector pos, int life, int lifeBarX, String lifeBarNavn, int r, int g, int b) {
+  Tank(PVector pos, int life, int lifeBarX, String lifeBarNavn, int r, int g, int b, boolean player) {
+    if(player){
+      force = 0.3;
+    } else {
+      force = 0.1;
+      up = true;
+      rotationForce = PI/82;
+    }
     this.life = life;
     startLife = life;
     this.r = r;
@@ -200,8 +207,7 @@ class Tank {
   }
 
   void shoot() {
-    skudList.add(new Skud(new PVector(this.pos.x + dir.copy().setMag(rad/2+height/120).x, this.pos.y + dir.copy().setMag(rad/2+height/120).y), new PVector(dir.x, dir.y)));
-    //skudList.add(new Skud(new PVector(this.pos.x, this.pos.y), new PVector(dir.x, dir.y)));
+    skudList.add(new Skud(new PVector(this.pos.x + dir.copy().setMag(rad/2+height/120).x, this.pos.y + dir.copy().setMag(rad/2+height/120).y), new PVector(dir.x, dir.y), true));
   }
 
   void lifespan() {
