@@ -3,6 +3,7 @@ ArrayList<Skud> skudList;
 int gamestate = 0;
 Tscreen ts;
 ArrayList<Wall> mure;
+Block b1;
 
 void setup() {
   fullScreen();
@@ -12,6 +13,7 @@ void setup() {
   skudList = new ArrayList<Skud>();
   ts = new Tscreen();
   mure = new ArrayList<Wall>();
+  b1 = new Block(150, 150, width-150, height-150);
   mure.add(new Wall(new PVector(150,150), new PVector(0,height-300)));
   mure.add(new Wall(new PVector(150,150), new PVector(width-300,0)));
   mure.add(new Wall(new PVector(150,height-150), new PVector(width-300,0)));
