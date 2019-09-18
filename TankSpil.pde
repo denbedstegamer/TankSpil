@@ -10,7 +10,7 @@ void setup() {
   frameRate(60);
   g = new Game();
   ts = new Tscreen();
-  sett = new Settings();
+  sett = new Settings(g);
 }
 
 void draw() {

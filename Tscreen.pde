@@ -35,7 +35,7 @@ class Tscreen {
     setting.pressed();
     
     textSize(32);
-    textMode(CORNER);
+    textMode(CENTER);
     fill(0);
     text("Player vs Player", width/2-width/16, height/4);
     
