@@ -1,6 +1,7 @@
 class Tscreen {
 
   Button game1pvp = new Button(width/2-width/6, height/4-height/16, width/3, height/8) {
+    
     @Override
       public void action() {
       gamestate = 1;
@@ -32,18 +33,27 @@ class Tscreen {
     
     setting.display();
     setting.pressed();
+    
+    textSize(32);
+    textMode(CORNER);
+    fill(0);
+    text("Player vs Player", width/2-width/16, height/4);
+    
+    textSize(32);
+    textMode(CORNER);
+    fill(0);
+    text("Settings", width/2-width/24, height/3+height/16);
   }
   
-  void displaysettings(){
-    background(100,200,200);
-    fill(160);
-  }
-  
-  void escape(){
-    pushMatrix();
-    fill(160);
+  void escape(){ 
+    fill(230);
     escape.display();
     escape.pressed();
-    popMatrix();
+    
+    textSize(32);
+    textMode(CORNER);
+    fill(0);
+    text("Escape", width-width/10, height-height/20);
+    
   }
 }

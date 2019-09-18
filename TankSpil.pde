@@ -16,10 +16,10 @@ void setup() {
   sett = new Settings();
   mure = new ArrayList<Wall>();
   b1 = new Block(150, 150, width-150, height-150);
-  /*mure.add(new Wall(new PVector(150, 150), new PVector(0, height-300)));
+  mure.add(new Wall(new PVector(150, 150), new PVector(0, height-300)));
   mure.add(new Wall(new PVector(150, 150), new PVector(width-300, 0)));
   mure.add(new Wall(new PVector(150, height-150), new PVector(width-300, 0)));
-  mure.add(new Wall(new PVector(width-150, 150), new PVector(0, height-300)));*/
+  mure.add(new Wall(new PVector(width-150, 150), new PVector(0, height-300)));
 }
 
 void draw() {
@@ -50,13 +50,21 @@ void draw() {
     break;
 
   case 2:
-    ts.displaysettings();
+    sett.display();
+    ts.escape();
+    break;
+  
+  case 3:
+  
+    break;
+    
+  case 4:
+    sett.controls();
     ts.escape();
     break;
 
   case 0:
     ts.display();
-
     break;
   }
 }
