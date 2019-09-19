@@ -1,6 +1,6 @@
 class Game {
   int currentLevel;
-  Level l;
+  Level l = new Level(new ArrayList<Block>());
   ArrayList<Tank> enemies;
 
   Game() {
@@ -9,14 +9,15 @@ class Game {
     tankList = new ArrayList<Tank>();
     blockList = new ArrayList<Block>();
     enemies = new ArrayList<Tank>();
-    l.createLevel1();
+    l = l.createLevel1();
   }
 
   void update() {
     for (int i = 0; i < tankList.size(); i++) {
       tankList.get(i).update();
     }
-
+    
+    /*
     for (int i = 0; i < enemies.size(); i++) {
       if (PVector.angleBetween(enemies.get(i).dir, tankList.get(0).pos.copy().sub(enemies.get(i).pos).normalize().rotate(PI/2)) >= PVector.angleBetween(enemies.get(i).dir.copy().mult(-1), tankList.get(0).pos.copy().sub(enemies.get(i).pos).normalize().rotate(PI/2))) {
         enemies.get(i).right = true;
@@ -36,7 +37,7 @@ class Game {
           enemies.get(i).left = false;
         }
       }
-    }
+    }*/
     
     if(frameCount%30==0){
       for (int i = 0; i < enemies.size(); i++) {
