@@ -131,7 +131,7 @@ class Tank {
         w = mure.get(m);
         PVector P0, P1 = new PVector(), W0 = w.pos.copy(), Wn = w.norm.copy();
         if (Wn.copy().normalize().x == -1 || Wn.copy().normalize().x == 1) {
-          for (int i = 0; i <= 15; i++) {
+          for (int i = 0; i <= 7; i++) {
             P0 = points[i].copy().add(pos.copy());
             if (left) {
               P1 = points[i].copy().rotate(-rotationForce).add(pos.copy());
@@ -147,7 +147,7 @@ class Tank {
             }
           }
         } else {
-          for (int i = 0; i <= 15; i++) {
+          for (int i = 0; i <= 7; i++) {
             P0 = points[i].copy().add(pos.copy());
             if (left) {
               P1 = points[i].copy().rotate(-rotationForce).add(pos.copy());
@@ -182,7 +182,7 @@ class Tank {
         w = mure.get(m);
         PVector P0, P1 = new PVector(), W0 = w.pos.copy(), Wn = w.norm.copy();
         if (Wn.copy().normalize().x == -1 || Wn.copy().normalize().x == 1) {
-          for (int i = 0; i <= 15; i++) {
+          for (int i = 0; i <= 7; i++) {
             P0 = points[i].copy().add(pos.copy());
             P1 = nextPos(points[i].copy().add(pos.copy()));
             if (P1.y > w.pos.y && P1.y < w.pos.y+w.dir.y) {
@@ -194,7 +194,7 @@ class Tank {
             }
           }
         } else {
-          for (int i = 0; i <= 15; i++) {
+          for (int i = 0; i <= 7; i++) {
             P0 = points[i].copy().add(pos.copy());
             P1 = nextPos(points[i].copy().add(pos.copy()));
             if (P1.x > w.pos.x && P1.x < w.pos.x+w.dir.x) {
