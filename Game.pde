@@ -1,6 +1,6 @@
 class Game {
   int currentLevel;
-  float wallWidth = height/100+height/300, gameScreen = height/5, gameWidth = width-2*gameScreen, gameHeight = height-2*gameScreen;
+  float wallWidth = height/100+height/50, gameScreen = height/5, gameWidth = width-2*gameScreen, gameHeight = height-2*gameScreen;
   Level l;
   ArrayList<Tank> enemies;
 
@@ -83,8 +83,6 @@ class Game {
     ts.escape();
   }
   
-  
-  
   void createLevel1() {
     ArrayList<Block> b = new ArrayList<Block>();
     tankList.add(new Tank(new PVector(gameScreen+gameWidth/6, gameScreen+gameHeight/6), 3000, width/18, "Player 1", 255, 0, 0, true));
@@ -115,6 +113,9 @@ class Game {
     b.add(new Block(gameScreen, gameScreen, gameScreen+wallWidth, height-gameScreen));
     b.add(new Block(gameScreen, height-gameScreen, width-gameScreen, height-gameScreen-wallWidth));
     b.add(new Block(width-gameScreen-wallWidth, gameScreen, width-gameScreen, height-gameScreen));
+    
+    b.add(new Block(gameScreen+gameWidth/7, gameScreen+));
+    
     l = new Level(b);
     currentLevel = 2;
   }
