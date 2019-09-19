@@ -60,10 +60,11 @@ void keyPressed() {
       tankList.get(0).down = true;
     }
   }
-  if (key == 'm' || key == 'M') {
+  
+  if ((key == 'm' || key == 'M') && tankList.get(0).life > 0) {
     tankList.get(0).shoot();
   }
-  if (key == 'c' || key == 'C') {
+  if ((key == 'c' || key == 'C') && tankList.get(1).life > 0) {
     tankList.get(1).shoot();
   }
   if (key == 'w' || key == 'W') {

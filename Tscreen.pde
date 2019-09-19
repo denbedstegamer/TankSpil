@@ -37,7 +37,7 @@ class Tscreen {
     textSize(32);
     textMode(CENTER);
     fill(0);
-    text("Player vs Player", width/2-width/16, height/4);
+    text("Co-op Adventure", width/2-width/16, height/4);
     
     textSize(32);
     fill(0);

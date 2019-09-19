@@ -4,7 +4,7 @@ class Tank {
   int life, lifeBarX, startLife, r, g, b;
   String lifeBarNavn;
   float angle, rad, force, rotationForce = PI/42;
-  boolean up, left, right, down, hasCol;
+  boolean up, left, right, down, hasCol, dead;
   PVector[] points = new PVector[16];
   /*Wall[] sider;*/
 
@@ -211,7 +211,8 @@ class Tank {
   }
 
   void shoot() {
-    skudList.add(new Skud(new PVector(this.pos.x + dir.copy().setMag(rad/2+height/120).x, this.pos.y + dir.copy().setMag(rad/2+height/120).y), new PVector(dir.x, dir.y), true));
+    //skudList.add(new Skud(new PVector(this.pos.x + dir.copy().setMag(rad/2+height/120).x, this.pos.y + dir.copy().setMag(rad/2+height/120).y), new PVector(dir.x, dir.y), true));
+    skudList.add(new Skud(new PVector(this.pos.x, this.pos.y), new PVector(dir.x, dir.y), true));
   }
 
   void lifespan() {
@@ -225,7 +226,6 @@ class Tank {
     if (life > 0) {
       strokeWeight(0);
       rect(lifeBarX, height/10, (life*300)/startLife, 25);
-      life--;
     }
     strokeWeight(1);
     textSize(32);

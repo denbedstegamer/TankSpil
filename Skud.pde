@@ -10,7 +10,7 @@ class Skud {
     this.shotFromPlayer = shotFromPlayer;
     this.pos = pos;
     this.vel = vel;
-    vel.normalize().setMag(6);
+    vel.normalize().setMag(3);
     points = new PVector[4];
     points[0] = new PVector(0, -rad/2);
     points[1] = new PVector(rad/2, 0);
@@ -27,7 +27,9 @@ class Skud {
     if (!shotFromPlayer) {
       for (int i = 0; i < tankList.size(); i++) {
         if (shotPlayer(tankList.get(i))) {
-          tankList.get(i).life = 0;
+          if (tankList.get(i).life > 0) {
+            tankList.get(i).life -= tankList.get(i).startLife/2;
+          }
         }
       }
     } else {
@@ -137,16 +139,18 @@ class Skud {
 
   boolean shotPlayer(Tank t) {
     PVector w;
-    for (int m = 0; m <= 15; m++) {
-      w = t.points[m];
-      if (dist(w.x+t.pos.x, w.y+t.pos.y, pos.x, pos.y) < rad/2) {
+    if (t.life > 0) {
+      for (int m = 0; m <= 15; m++) {
+        w = t.points[m];
+        if (dist(w.x+t.pos.x, w.y+t.pos.y, pos.x, pos.y) < rad/2) {
+          life = 1000;
+          return true;
+        }
+      }
+      if (dist(t.pos.x, t.pos.y, pos.x, pos.y) < rad/2) {
         life = 1000;
         return true;
       }
-    }
-    if (dist(t.pos.x, t.pos.y, pos.x, pos.y) < rad/2) {
-      life = 1000;
-      return true;
     }
     return false;
   }

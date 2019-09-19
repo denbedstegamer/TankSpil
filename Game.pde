@@ -1,5 +1,5 @@
 class Game {
-  int currentLevel;
+  int currentLevel = 1;
   Level l = new Level(new ArrayList<Block>(), this);
   ArrayList<Tank> enemies;
 
@@ -14,38 +14,27 @@ class Game {
 
   void update() {
     for (int i = 0; i < tankList.size(); i++) {
-      tankList.get(i).update();
-    }
-    
-    for (int i = 0; i < enemies.size(); i++) {
-      if (PVector.angleBetween(enemies.get(i).dir, tankList.get(0).pos.copy().sub(enemies.get(i).pos).normalize().rotate(PI/2)) >= PVector.angleBetween(enemies.get(i).dir.copy().mult(-1), tankList.get(0).pos.copy().sub(enemies.get(i).pos).normalize().rotate(PI/2))) {
-        enemies.get(i).right = true;
-        enemies.get(i).left = false;
-      } else {
-        enemies.get(i).right = false;
-        enemies.get(i).left = true;
-      }
-      if (enemies.get(i).right) {
-        if (PVector.angleBetween(enemies.get(i).dir, tankList.get(0).pos.copy().sub(enemies.get(i).pos).normalize().rotate(PI/2))-PVector.angleBetween(enemies.get(i).dir.copy().mult(-1), tankList.get(0).pos.copy().sub(enemies.get(i).pos).normalize().rotate(PI/2)) <= enemies.get(i).rotationForce) {
-          enemies.get(i).right = false;
-          enemies.get(i).left = false;
-        }
-      } else {
-        if (PVector.angleBetween(enemies.get(i).dir, tankList.get(0).pos.copy().sub(enemies.get(i).pos).normalize().rotate(PI/2))-PVector.angleBetween(enemies.get(i).dir.copy().mult(-1), tankList.get(0).pos.copy().sub(enemies.get(i).pos).normalize().rotate(PI/2)) >= enemies.get(i).rotationForce*-1) {
-          enemies.get(i).right = false;
-          enemies.get(i).left = false;
-        }
+      if (tankList.get(i).life > 0) {
+        tankList.get(i).update();
       }
     }
-    
-    if(frameCount%30==0){
+
+    aim();
+
+    if (frameCount%30==0) {
       for (int i = 0; i < enemies.size(); i++) {
         enemies.get(i).shoot();
       }
     }
-    
+
     for (int i = 0; i < enemies.size(); i++) {
       enemies.get(i).update();
+    }
+
+    for (int i = 0; i < enemies.size(); i++) {
+      if (enemies.get(i).life <= 0) {
+        enemies.remove(i);
+      }
     }
     
     for (int i = skudList.size(); i > 0; i--) {
@@ -54,20 +43,60 @@ class Game {
       }
     }
 
+    if (tankList.get(0).life <= 0 && tankList.get(1).life <= 0) {
+      //TODO make game over screen
+    }
+    if (enemies.size() == 0) {
+      l.createLevel(currentLevel+1);
+    }
+    
+    render();
+  }
 
-
-    for (int i = 0; i < tankList.size(); i++) {
-      if (tankList.get(i).life <= 0) {
-        l.createLevel2();
+  void aim() {
+    Tank t = new Tank(new PVector(), 0, 0, "Player 1", 0, 0, 0, true);
+    if (tankList.get(1).life <= 0) {
+      t = tankList.get(0);
+    }
+    if (tankList.get(0).life <= 0) {
+      t = tankList.get(1);
+    }
+    for (int i = 0; i < enemies.size(); i++) {
+      if (tankList.get(0).life > 0 && tankList.get(1).life > 0) {
+        if (enemies.get(i).pos.copy().sub(tankList.get(0).pos).mag() > enemies.get(i).pos.copy().sub(tankList.get(1).pos).mag()) {
+          t = tankList.get(1);
+        } else {
+          t = tankList.get(0);
+        }
+      }
+      if (PVector.angleBetween(enemies.get(i).dir, t.pos.copy().sub(enemies.get(i).pos).normalize().rotate(PI/2)) >= PVector.angleBetween(enemies.get(i).dir.copy().mult(-1), t.pos.copy().sub(enemies.get(i).pos).normalize().rotate(PI/2))) {
+        enemies.get(i).right = true;
+        enemies.get(i).left = false;
+      } else {
+        enemies.get(i).right = false;
+        enemies.get(i).left = true;
+      }
+      if (enemies.get(i).right) {
+        if (PVector.angleBetween(enemies.get(i).dir, t.pos.copy().sub(enemies.get(i).pos).normalize().rotate(PI/2))-PVector.angleBetween(enemies.get(i).dir.copy().mult(-1), t.pos.copy().sub(enemies.get(i).pos).normalize().rotate(PI/2)) <= enemies.get(i).rotationForce) {
+          enemies.get(i).right = false;
+          enemies.get(i).left = false;
+        }
+      } else {
+        if (PVector.angleBetween(enemies.get(i).dir, t.pos.copy().sub(enemies.get(i).pos).normalize().rotate(PI/2))-PVector.angleBetween(enemies.get(i).dir.copy().mult(-1), t.pos.copy().sub(enemies.get(i).pos).normalize().rotate(PI/2)) >= enemies.get(i).rotationForce*-1) {
+          enemies.get(i).right = false;
+          enemies.get(i).left = false;
+        }
       }
     }
-    render();
   }
 
   void render() {
     background(255);
+    text(currentLevel, width/2, height/16);
     for (int i = 0; i < tankList.size(); i++) {
-      tankList.get(i).render();
+      if (tankList.get(i).life > 0) {
+        tankList.get(i).render();
+      }
       tankList.get(i).lifespan();
     }
     for (int i = 0; i < enemies.size(); i++) {
@@ -111,7 +140,7 @@ class Game {
 
       @Override
         public void shoot() {
-        skudList.add(new Skud(new PVector(this.pos.x + dir.copy().setMag(rad/2+height/120).x, this.pos.y + dir.copy().setMag(rad/2+height/120).y), new PVector(dir.x, dir.y), false));
+        skudList.add(new Skud(new PVector(this.pos.x, this.pos.y), new PVector(dir.x, dir.y), false));
       }
     };
     enemies.add(enemy1);
