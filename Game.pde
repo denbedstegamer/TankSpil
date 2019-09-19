@@ -1,6 +1,6 @@
 class Game {
   int currentLevel;
-  Level l = new Level(new ArrayList<Block>());
+  Level l = new Level(new ArrayList<Block>(), this);
   ArrayList<Tank> enemies;
 
   Game() {

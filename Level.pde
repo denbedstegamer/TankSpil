@@ -1,8 +1,10 @@
 class Level {
   
+  Game g;
   float wallWidth = height/100+height/50, gameScreen = height/5, gameWidth = width-2*gameScreen, gameHeight = height-2*gameScreen;
 
-  Level(ArrayList<Block> b) {
+  Level(ArrayList<Block> b, Game g) {
+    this.g = g;
     for (int i = 0; i < b.size(); i++) {
       blockList.add(b.get(i));
     }
@@ -37,7 +39,7 @@ class Level {
     b.add(new Block(gameScreen+gameWidth/3, gameScreen+gameHeight-gameHeight/3, gameScreen+gameWidth/3+wallWidth, gameScreen+gameHeight));
     
     g.currentLevel = 1;
-    return new Level(b);
+    return new Level(b, g);
   }
 
   Level createLevel2() {
@@ -52,6 +54,6 @@ class Level {
     b.add(new Block(gameScreen+gameWidth/7, gameScreen+gameHeight*2/3, gameScreen+gameWidth*2/7, gameScreen+gameHeight*2/3+wallWidth));
     
     g.currentLevel = 2;
-    return new Level(b);
+    return new Level(b, g);
   }
 }
