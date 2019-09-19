@@ -17,7 +17,6 @@ class Game {
       tankList.get(i).update();
     }
     
-    /*
     for (int i = 0; i < enemies.size(); i++) {
       if (PVector.angleBetween(enemies.get(i).dir, tankList.get(0).pos.copy().sub(enemies.get(i).pos).normalize().rotate(PI/2)) >= PVector.angleBetween(enemies.get(i).dir.copy().mult(-1), tankList.get(0).pos.copy().sub(enemies.get(i).pos).normalize().rotate(PI/2))) {
         enemies.get(i).right = true;
@@ -37,18 +36,18 @@ class Game {
           enemies.get(i).left = false;
         }
       }
-    }*/
+    }
     
     if(frameCount%30==0){
       for (int i = 0; i < enemies.size(); i++) {
-        /*enemies.get(i).shoot();*/
+        enemies.get(i).shoot();
       }
     }
-
+    
     for (int i = 0; i < enemies.size(); i++) {
       enemies.get(i).update();
     }
-
+    
     for (int i = skudList.size(); i > 0; i--) {
       if (skudList.get(i-1).dead) {
         skudList.remove(i-1);

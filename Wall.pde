@@ -1,7 +1,9 @@
 class Wall{
   PVector pos, dir, norm;
+  boolean collision;
   
-  Wall(PVector pos, PVector dir){
+  Wall(PVector pos, PVector dir, boolean collision){
+    this.collision = collision;
     this.pos = pos.copy();
     this.dir = dir.copy();
     norm = this.dir.copy().normalize().rotate(-PI/2);
