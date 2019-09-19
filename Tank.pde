@@ -9,7 +9,7 @@ class Tank {
   /*Wall[] sider;*/
 
   Tank(PVector pos, int life, int lifeBarX, String lifeBarNavn, int r, int g, int b, boolean player) {
-    if(player){
+    if (player) {
       force = 0.3;
     } else {
       force = 0.1;
@@ -44,10 +44,10 @@ class Tank {
     points[14] = new PVector(-rad/4, rad/2);
     points[15] = new PVector(-rad/2, -rad/4);
     /*sider = new Wall[4];
-    sider[0] = new Wall(points[0].copy(), new PVector(points[1].copy().sub(points[0]).x, points[1].copy().sub(points[0]).y));
-    sider[1] = new Wall(points[1].copy(), new PVector(points[2].copy().sub(points[1]).x, points[2].copy().sub(points[1]).y));
-    sider[2] = new Wall(points[2].copy(), new PVector(points[3].copy().sub(points[2]).x, points[3].copy().sub(points[2]).y));
-    sider[3] = new Wall(points[3].copy(), new PVector(points[0].copy().sub(points[3]).x, points[0].copy().sub(points[3]).y));*/
+     sider[0] = new Wall(points[0].copy(), new PVector(points[1].copy().sub(points[0]).x, points[1].copy().sub(points[0]).y));
+     sider[1] = new Wall(points[1].copy(), new PVector(points[2].copy().sub(points[1]).x, points[2].copy().sub(points[1]).y));
+     sider[2] = new Wall(points[2].copy(), new PVector(points[3].copy().sub(points[2]).x, points[3].copy().sub(points[2]).y));
+     sider[3] = new Wall(points[3].copy(), new PVector(points[0].copy().sub(points[3]).x, points[0].copy().sub(points[3]).y));*/
   }
 
   void render() {
@@ -63,8 +63,8 @@ class Tank {
      ellipse(points[i].x+pos.x, points[i].y+pos.y, 3, 3);
      }*/
     /*for (int i = 0; i <= 3; i++) {
-      line(sider[i].pos.x+pos.x, sider[i].pos.y+pos.y, sider[i].pos.x+sider[i].dir.x+pos.x, sider[i].pos.y+sider[i].dir.y+pos.y);
-    }*/
+     line(sider[i].pos.x+pos.x, sider[i].pos.y+pos.y, sider[i].pos.x+sider[i].dir.x+pos.x, sider[i].pos.y+sider[i].dir.y+pos.y);
+     }*/
   }
 
   void update() {
@@ -98,9 +98,9 @@ class Tank {
       pos = nextPos(pos);
     }
     /*sider[0] = new Wall(points[0].copy(), new PVector(points[1].copy().sub(points[0]).x, points[1].copy().sub(points[0]).y));
-    sider[1] = new Wall(points[1].copy(), new PVector(points[2].copy().sub(points[1]).x, points[2].copy().sub(points[1]).y));
-    sider[2] = new Wall(points[2].copy(), new PVector(points[3].copy().sub(points[2]).x, points[3].copy().sub(points[2]).y));
-    sider[3] = new Wall(points[3].copy(), new PVector(points[0].copy().sub(points[3]).x, points[0].copy().sub(points[3]).y));*/
+     sider[1] = new Wall(points[1].copy(), new PVector(points[2].copy().sub(points[1]).x, points[2].copy().sub(points[1]).y));
+     sider[2] = new Wall(points[2].copy(), new PVector(points[3].copy().sub(points[2]).x, points[3].copy().sub(points[2]).y));
+     sider[3] = new Wall(points[3].copy(), new PVector(points[0].copy().sub(points[3]).x, points[0].copy().sub(points[3]).y));*/
   }
 
   PVector nextPos(PVector pos) {
@@ -127,37 +127,39 @@ class Tank {
   boolean canRotate() {
     Wall w;
     for (int m = 0; m < mure.size(); m++) {
-      w = mure.get(m);
-      PVector P0, P1 = new PVector(), W0 = w.pos.copy(), Wn = w.norm.copy();
-      if (Wn.copy().normalize().x == -1 || Wn.copy().normalize().x == 1) {
-        for (int i = 0; i <= 15; i++) {
-          P0 = points[i].copy().add(pos.copy());
-          if (left) {
-            P1 = points[i].copy().rotate(-rotationForce).add(pos.copy());
-          }
-          if (right) {
-            P1 = points[i].copy().rotate(rotationForce).add(pos.copy());
-          }
-          if (P1.y > w.pos.y && P1.y < w.pos.y+w.dir.y) {
-            if ((Wn.copy().dot(P0.copy().sub(W0.copy())) > 0 && Wn.copy().dot(P1.copy().sub(W0.copy())) < 0) || (Wn.copy().dot(P0.copy().sub(W0.copy())) < 0 && Wn.copy().dot(P1.copy().sub(W0.copy())) > 0)) {
-              pos.x += w.pos.x-P1.x;
-              return false;
+      if (mure.get(m).collision) {
+        w = mure.get(m);
+        PVector P0, P1 = new PVector(), W0 = w.pos.copy(), Wn = w.norm.copy();
+        if (Wn.copy().normalize().x == -1 || Wn.copy().normalize().x == 1) {
+          for (int i = 0; i <= 15; i++) {
+            P0 = points[i].copy().add(pos.copy());
+            if (left) {
+              P1 = points[i].copy().rotate(-rotationForce).add(pos.copy());
+            }
+            if (right) {
+              P1 = points[i].copy().rotate(rotationForce).add(pos.copy());
+            }
+            if (P1.y > w.pos.y && P1.y < w.pos.y+w.dir.y) {
+              if ((Wn.copy().dot(P0.copy().sub(W0.copy())) > 0 && Wn.copy().dot(P1.copy().sub(W0.copy())) < 0) || (Wn.copy().dot(P0.copy().sub(W0.copy())) < 0 && Wn.copy().dot(P1.copy().sub(W0.copy())) > 0)) {
+                pos.x += w.pos.x-P1.x;
+                return false;
+              }
             }
           }
-        }
-      } else {
-        for (int i = 0; i <= 15; i++) {
-          P0 = points[i].copy().add(pos.copy());
-          if (left) {
-            P1 = points[i].copy().rotate(-rotationForce).add(pos.copy());
-          }
-          if (right) {
-            P1 = points[i].copy().rotate(rotationForce).add(pos.copy());
-          }
-          if (P1.x > w.pos.x && P1.x < w.pos.x+w.dir.x) {
-            if ((Wn.copy().dot(P0.copy().sub(W0.copy())) > 0 && Wn.copy().dot(P1.copy().sub(W0.copy())) < 0) || (Wn.copy().dot(P0.copy().sub(W0.copy())) < 0 && Wn.copy().dot(P1.copy().sub(W0.copy())) > 0)) {
-              pos.y += w.pos.y-P1.y;
-              return false;
+        } else {
+          for (int i = 0; i <= 15; i++) {
+            P0 = points[i].copy().add(pos.copy());
+            if (left) {
+              P1 = points[i].copy().rotate(-rotationForce).add(pos.copy());
+            }
+            if (right) {
+              P1 = points[i].copy().rotate(rotationForce).add(pos.copy());
+            }
+            if (P1.x > w.pos.x && P1.x < w.pos.x+w.dir.x) {
+              if ((Wn.copy().dot(P0.copy().sub(W0.copy())) > 0 && Wn.copy().dot(P1.copy().sub(W0.copy())) < 0) || (Wn.copy().dot(P0.copy().sub(W0.copy())) < 0 && Wn.copy().dot(P1.copy().sub(W0.copy())) > 0)) {
+                pos.y += w.pos.y-P1.y;
+                return false;
+              }
             }
           }
         }
@@ -176,29 +178,31 @@ class Tank {
     }
     vel.mult(0.9);
     for (int m = 0; m < mure.size(); m++) {
-      w = mure.get(m);
-      PVector P0, P1 = new PVector(), W0 = w.pos.copy(), Wn = w.norm.copy();
-      if (Wn.copy().normalize().x == -1 || Wn.copy().normalize().x == 1) {
-        for (int i = 0; i <= 15; i++) {
-          P0 = points[i].copy().add(pos.copy());
-          P1 = nextPos(points[i].copy().add(pos.copy()));
-          if (P1.y > w.pos.y && P1.y < w.pos.y+w.dir.y) {
-            if ((Wn.copy().dot(P0.copy().sub(W0.copy())) > 0 && Wn.copy().dot(P1.copy().sub(W0.copy())) < 0) || (Wn.copy().dot(P0.copy().sub(W0.copy())) < 0 && Wn.copy().dot(P1.copy().sub(W0.copy())) > 0)) {
-              pos.x += w.pos.x-P1.x;
-              vel.x = 0;
-              hasCol = true;
+      if (mure.get(m).collision) {
+        w = mure.get(m);
+        PVector P0, P1 = new PVector(), W0 = w.pos.copy(), Wn = w.norm.copy();
+        if (Wn.copy().normalize().x == -1 || Wn.copy().normalize().x == 1) {
+          for (int i = 0; i <= 15; i++) {
+            P0 = points[i].copy().add(pos.copy());
+            P1 = nextPos(points[i].copy().add(pos.copy()));
+            if (P1.y > w.pos.y && P1.y < w.pos.y+w.dir.y) {
+              if ((Wn.copy().dot(P0.copy().sub(W0.copy())) > 0 && Wn.copy().dot(P1.copy().sub(W0.copy())) < 0) || (Wn.copy().dot(P0.copy().sub(W0.copy())) < 0 && Wn.copy().dot(P1.copy().sub(W0.copy())) > 0)) {
+                pos.x += w.pos.x-P1.x;
+                vel.x = 0;
+                hasCol = true;
+              }
             }
           }
-        }
-      } else {
-        for (int i = 0; i <= 15; i++) {
-          P0 = points[i].copy().add(pos.copy());
-          P1 = nextPos(points[i].copy().add(pos.copy()));
-          if (P1.x > w.pos.x && P1.x < w.pos.x+w.dir.x) {
-            if ((Wn.copy().dot(P0.copy().sub(W0.copy())) > 0 && Wn.copy().dot(P1.copy().sub(W0.copy())) < 0) || (Wn.copy().dot(P0.copy().sub(W0.copy())) < 0 && Wn.copy().dot(P1.copy().sub(W0.copy())) > 0)) {
-              pos.y += w.pos.y-P1.y;
-              vel.y = 0;
-              hasCol = true;
+        } else {
+          for (int i = 0; i <= 15; i++) {
+            P0 = points[i].copy().add(pos.copy());
+            P1 = nextPos(points[i].copy().add(pos.copy()));
+            if (P1.x > w.pos.x && P1.x < w.pos.x+w.dir.x) {
+              if ((Wn.copy().dot(P0.copy().sub(W0.copy())) > 0 && Wn.copy().dot(P1.copy().sub(W0.copy())) < 0) || (Wn.copy().dot(P0.copy().sub(W0.copy())) < 0 && Wn.copy().dot(P1.copy().sub(W0.copy())) > 0)) {
+                pos.y += w.pos.y-P1.y;
+                vel.y = 0;
+                hasCol = true;
+              }
             }
           }
         }
