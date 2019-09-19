@@ -41,14 +41,16 @@ class Level {
   }
 
   Level createLevel2() {
-    l.removeAllBlocks();
+    removeAllBlocks();
     ArrayList<Block> b = new ArrayList<Block>();
     b.add(new Block(gameScreen, gameScreen, width-gameScreen, gameScreen+wallWidth));
     b.add(new Block(gameScreen, gameScreen, gameScreen+wallWidth, height-gameScreen));
     b.add(new Block(gameScreen, height-gameScreen, width-gameScreen, height-gameScreen-wallWidth));
     b.add(new Block(width-gameScreen-wallWidth, gameScreen, width-gameScreen, height-gameScreen));
     
-    b.add(new Block(gameScreen+gameWidth/7, gameScreen+));
+    b.add(new Block(gameScreen+gameWidth/7, gameScreen+gameHeight/3, gameScreen+gameWidth*2/7, gameScreen+gameHeight/3+wallWidth));
+    b.add(new Block(gameScreen+gameWidth/7, gameScreen+gameHeight*2/3, gameScreen+gameWidth*2/7, gameScreen+gameHeight*2/3+wallWidth));
+    
     g.currentLevel = 2;
     return new Level(b);
   }
