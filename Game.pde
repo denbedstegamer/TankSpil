@@ -1,5 +1,6 @@
 class Game {
   int currentLevel;
+  float wallWidth = height/100+height/300, gameScreen = height/5, gameWidth = width-2*gameScreen, gameHeight = height-2*gameScreen;
   Level l;
   ArrayList<Tank> enemies;
 
@@ -9,9 +10,6 @@ class Game {
     tankList = new ArrayList<Tank>();
     blockList = new ArrayList<Block>();
     enemies = new ArrayList<Tank>();
-    tankList.add(new Tank(new PVector((width*2)/3+1, (height*2)/3), 3000, width/18, "Player 1", 255, 0, 0, true));
-    tankList.add(new Tank(new PVector(width/3, height/3), 3000, width-width/10-300, "Player 2", 0, 255, 0, true));
-    createEnemy(new PVector(width/2, height/2));
     createLevel1();
   }
 
@@ -43,7 +41,7 @@ class Game {
     
     if(frameCount%30==0){
       for (int i = 0; i < enemies.size(); i++) {
-        enemies.get(i).shoot();
+        /*enemies.get(i).shoot();*/
       }
     }
 
@@ -84,10 +82,28 @@ class Game {
     }
     ts.escape();
   }
-
+  
+  
+  
   void createLevel1() {
     ArrayList<Block> b = new ArrayList<Block>();
-    b.add(new Block(150, 150, width-150, height-150));
+    tankList.add(new Tank(new PVector(gameScreen+gameWidth/6, gameScreen+gameHeight/6), 3000, width/18, "Player 1", 255, 0, 0, true));
+    tankList.add(new Tank(new PVector(gameScreen+gameWidth/6, gameScreen+gameHeight*5/6), 3000, width-width/10-300, "Player 2", 0, 255, 0, true));
+    
+    createEnemy(new PVector(width-gameScreen-gameWidth/6, gameScreen+gameHeight/6));
+    createEnemy(new PVector(width-gameScreen-gameWidth/6, gameScreen+gameHeight*3/6));
+    createEnemy(new PVector(width-gameScreen-gameWidth/6, gameScreen+gameHeight*5/6));
+    
+    b.add(new Block(gameScreen, gameScreen, width-gameScreen, gameScreen+wallWidth));
+    b.add(new Block(gameScreen, gameScreen, gameScreen+wallWidth, height-gameScreen));
+    b.add(new Block(gameScreen, height-gameScreen, width-gameScreen, height-gameScreen-wallWidth));
+    b.add(new Block(width-gameScreen-wallWidth, gameScreen, width-gameScreen, height-gameScreen));
+    
+    b.add(new Block(gameScreen+gameWidth/3, gameScreen, gameScreen+gameWidth/3+wallWidth, gameScreen+gameHeight/3));
+    b.add(new Block(gameScreen+gameWidth*2/3, gameScreen, gameScreen+gameWidth*2/3+wallWidth, gameScreen+gameHeight/3));
+    b.add(new Block(gameScreen+gameWidth*2/3, gameScreen+gameHeight-gameHeight/3, gameScreen+gameWidth*2/3+wallWidth, gameScreen+gameHeight));
+    b.add(new Block(gameScreen+gameWidth/3, gameScreen+gameHeight-gameHeight/3, gameScreen+gameWidth/3+wallWidth, gameScreen+gameHeight));
+    
     l = new Level(b);
     currentLevel = 1;
   }
@@ -95,14 +111,16 @@ class Game {
   void createLevel2() {
     l.removeAllBlocks();
     ArrayList<Block> b = new ArrayList<Block>();
-    b.add(new Block(0, 0, width-150, height-150));
-    b.add(new Block(10, 10, width-160, height-160));
+    b.add(new Block(gameScreen, gameScreen, width-gameScreen, gameScreen+wallWidth));
+    b.add(new Block(gameScreen, gameScreen, gameScreen+wallWidth, height-gameScreen));
+    b.add(new Block(gameScreen, height-gameScreen, width-gameScreen, height-gameScreen-wallWidth));
+    b.add(new Block(width-gameScreen-wallWidth, gameScreen, width-gameScreen, height-gameScreen));
     l = new Level(b);
     currentLevel = 2;
   }
 
   void createEnemy(PVector pos) {
-    Tank enemy1 = new Tank(pos, 3000, width-width/10-300, "Player 2", 0, 255, 0, false) {
+    Tank enemy1 = new Tank(pos, 3000, width-width/10-300, "Player 2", 40, 40, 40, false) {
       @Override
         public void update() {
         hasCol = false;
