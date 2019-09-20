@@ -11,7 +11,7 @@ class Game {
     tankList = new ArrayList<Tank>();
     blockList = new ArrayList<Block>();
     enemies = new ArrayList<Tank>();
-    l = l.createLevel3();
+    l = l.createLevel1();
   }
 
   void update() {
