@@ -2,8 +2,9 @@ class Settings {
 
   Game g;
   int r, green, b;
+  PImage img;
 
-  Button controls = new Button(width/2-width/3, height/4-height/16, width/6, height/16) {
+  Button controls = new Button(width/2-width/6, height/4, width/3, height/8) {
     @Override
       public void action() {
       gamestate = 4;
@@ -14,7 +15,7 @@ class Settings {
     this.g = g;
   }
 
-  Button colors = new Button(width/2-width/3, height/4+height/16, width/6, height/16) {
+  Button colors = new Button(width/2-width/6, height/4+height/8+height/50, width/3, height/8) {
     @Override
       public void action() {
       gamestate = 5;
@@ -32,17 +33,18 @@ class Settings {
     colors.display();
     colors.pressed();
 
-    textSize(32);
+    textSize(55);
+    textAlign(CENTER);
     fill(0);
-    text("Controls", width/3-width/8, height/4-height/40);
-
-    textSize(32);
-    fill(0);
-    text("Colors", width/3-width/8, height/3+height/32);
+    text("Controls", width/2, height/4+height/16+height/64);
+    text("Colors", width/2, height/2-height/32);
   }
 
   void controls() {
     background(0);
+    img = loadImage("TankSpilControls.png");
+    image(img, 0, 0);
+    
   }
 
   Button p1c1 = new Button(width/2-width/3, height/4-height/16, width/6, height/16) {

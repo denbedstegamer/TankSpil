@@ -37,7 +37,7 @@ class Tscreen {
 
   void display() {
     background(0);
-    fill(160);
+    fill(230);
     coop.display();
     coop.pressed();
     pvp.display();
@@ -46,7 +46,7 @@ class Tscreen {
     setting.display();
     setting.pressed();
     
-    textSize(32);
+    textSize(55);
     textAlign(CENTER);
     fill(0);
     text("Co-op Adventure", width/2, height/4+height/16+height/64);
