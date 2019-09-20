@@ -1,5 +1,6 @@
 int gamestate = 0;
 Tscreen ts;
+Escreen es;
 Settings sett;
 Game g;
 ArrayList<Skud> skudList;
@@ -12,6 +13,7 @@ void setup() {
   frameRate(60);
   g = new Game();
   ts = new Tscreen();
+  es = new Escreen();
   sett = new Settings(g);
 }
 
@@ -41,6 +43,10 @@ void draw() {
     
   case 5:
     sett.colors();
+    break;
+    
+  case 6:
+    es.deathdisplay();
     break;
   }
 }

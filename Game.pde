@@ -44,7 +44,7 @@ class Game {
     }
 
     if (tankList.get(0).life <= 0 && tankList.get(1).life <= 0) {
-      //TODO make game over screen
+      gamestate = 6;
     }
     if (enemies.size() == 0) {
       l.createLevel(currentLevel+1);
