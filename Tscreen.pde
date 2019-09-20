@@ -1,6 +1,6 @@
 class Tscreen {
 
-  Button game1pvp = new Button(width/2-width/6, height/4-height/16, width/3, height/8) {
+  Button coop = new Button(width/2-width/6, height/4, width/3, height/8) {
     
     @Override
       public void action() {
@@ -8,7 +8,15 @@ class Tscreen {
     }
   };
   
-  Button setting = new Button(width/2-width/6, height/3, width/3, height/8) {
+  Button pvp = new Button(width/2-width/6, height/4+height/8+height/50, width/3, height/8) {
+    
+    @Override
+      public void action() {
+      gamestate = 3;
+    }
+  };
+  
+  Button setting = new Button(width/2-width/6, height/4+height/8*2+height/50*2, width/3, height/8) {
     @Override
       public void action() {
       gamestate = 2;
@@ -28,20 +36,20 @@ class Tscreen {
   void display() {
     background(0);
     fill(160);
-    game1pvp.display();
-    game1pvp.pressed();
+    coop.display();
+    coop.pressed();
+    pvp.display();
+    pvp.pressed();
     
     setting.display();
     setting.pressed();
     
     textSize(32);
-    textMode(CENTER);
+    textAlign(CENTER);
     fill(0);
-    text("Co-op Adventure", width/2-width/16, height/4);
-    
-    textSize(32);
-    fill(0);
-    text("Settings", width/2-width/24, height/3+height/16);
+    text("Co-op Adventure", width/2, height/4+height/16+height/64);
+    text("Pvp", width/2, height/2-height/32);
+    text("Settings", width/2, height/2-height/32+height/8+height/64);
   }
   
   void escape(){ 
@@ -49,9 +57,10 @@ class Tscreen {
     escape.display();
     escape.pressed();
     
+    textAlign(CENTER);
     textSize(32);
     fill(0);
-    text("Escape", width-width/10, height-height/20);
+    text("Escape", width-width/20-height/40, height-height/20);
     
   }
 }
