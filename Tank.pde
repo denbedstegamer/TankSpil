@@ -199,10 +199,10 @@ class Tank {
     }
   }
 
-  void shoot() {
+  void shoot(boolean fromPlayer) {
     if (lastShot <= 0) {
       //skudList.add(new Skud(new PVector(this.pos.x + dir.copy().setMag(rad/2+height/120).x, this.pos.y + dir.copy().setMag(rad/2+height/120).y), new PVector(dir.x, dir.y), true));
-      skudList.add(new Skud(new PVector(this.pos.x, this.pos.y), new PVector(dir.x, dir.y), true));
+      skudList.add(new Skud(new PVector(this.pos.x, this.pos.y), new PVector(dir.x, dir.y), fromPlayer));
       lastShot = 15;
     }
   }

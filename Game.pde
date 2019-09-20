@@ -11,21 +11,33 @@ class Game {
     tankList = new ArrayList<Tank>();
     blockList = new ArrayList<Block>();
     enemies = new ArrayList<Tank>();
-    l = l.createLevel1();
+    if (coop) {
+      l = l.createLevel(1);
+    } else {
+      l = l.createLevel(0);
+    }
   }
 
   void update() {
-    for (int i = 0; i < tankList.size(); i++) {
-      if (tankList.get(i).life > 0) {
+    if (coop) {
+      for (int i = 0; i < tankList.size(); i++) {
+        if (tankList.get(i).life > 0) {
+          tankList.get(i).update();
+        }
+      }
+    } else {
+      for (int i = 0; i < tankList.size(); i++) {
         tankList.get(i).update();
       }
     }
 
-    aim();
+    if (coop) {
+      aim();
+    }
 
     if (frameCount%30==0) {
       for (int i = 0; i < enemies.size(); i++) {
-        enemies.get(i).shoot();
+        enemies.get(i).shoot(false);
       }
     }
 
@@ -38,20 +50,23 @@ class Game {
         enemies.remove(i);
       }
     }
-    
+
     for (int i = skudList.size(); i > 0; i--) {
       if (skudList.get(i-1).dead) {
         skudList.remove(i-1);
       }
     }
 
-    if (tankList.get(0).life <= 0 && tankList.get(1).life <= 0) {
-      gamestate = 6;
+    if (coop) {
+      if (tankList.get(0).life <= 0 && tankList.get(1).life <= 0) {
+        gamestate = 6;
+      }
+
+      if (enemies.size() == 0) {
+        l.createLevel(currentLevel+1);
+      }
     }
-    if (enemies.size() == 0) {
-      l.createLevel(currentLevel+1);
-    }
-    
+
     render();
   }
 
@@ -94,7 +109,12 @@ class Game {
 
   void render() {
     background(255);
-    text(currentLevel, width/2, height/16);
+    textAlign(CENTER);
+    if (currentLevel != 0) {
+      text(currentLevel, width/2, height/16);
+    } else {
+      text("PvP", width/2, height/16);
+    }
     for (int i = 0; i < tankList.size(); i++) {
       if (tankList.get(i).life > 0) {
         tankList.get(i).render();
@@ -119,10 +139,20 @@ class Game {
   void createEnemy(PVector pos) {
     Tank enemy1 = new Tank(pos, 3000, width-width/10-300, "Player 2", 40, 40, 40, false) {
       @Override
-        public void shoot() {
-        skudList.add(new Skud(new PVector(this.pos.x, this.pos.y), new PVector(dir.x, dir.y), false));
+        public void shoot(boolean shotFromPlayer) {
+        skudList.add(new Skud(new PVector(this.pos.x, this.pos.y), new PVector(dir.x, dir.y), shotFromPlayer));
       }
     };
     enemies.add(enemy1);
+  }
+
+  Tank returnEnemy(PVector pos) {
+    Tank enemy1 = new Tank(pos, 3000, width-width/10-300, "Player 2", 40, 40, 40, true) {
+      @Override
+        public void shoot(boolean shotFromPlayer) {
+        skudList.add(new Skud(new PVector(this.pos.x, this.pos.y), new PVector(dir.x, dir.y), shotFromPlayer));
+      }
+    };
+    return enemy1;
   }
 }

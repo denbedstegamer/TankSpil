@@ -136,6 +136,9 @@ class Level {
     b.add(new Block(gameScreen, gameScreen, gameScreen+wallWidth, height-gameScreen, false, false, true, false));
     b.add(new Block(gameScreen, height-gameScreen-wallWidth, width-gameScreen, height-gameScreen, true, false, false, false));
     b.add(new Block(width-gameScreen-wallWidth, gameScreen, width-gameScreen, height-gameScreen, false, true, false, false));
+    
+    tankList.add(new Tank(new PVector(gameScreen+gameWidth*1/3, gameScreen+gameHeight*1/4), 3000, width/18, "Player 1", 255, 0, 0, true));
+    tankList.add(g.returnEnemy(new PVector(width/2, height/2)));
 
     g.currentLevel = 0;
     return new Level(b, g);

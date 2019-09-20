@@ -5,6 +5,7 @@ class Tscreen {
     @Override
       public void action() {
       gamestate = 1;
+      g = new Game(true);
     }
   };
   
@@ -13,6 +14,7 @@ class Tscreen {
     @Override
       public void action() {
       gamestate = 3;
+      g = new Game(false);
     }
   };
   
