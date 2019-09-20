@@ -6,8 +6,8 @@ class Tank {
   float angle, rad, force, rotationForce = PI/42, lastShot;
   boolean up, left, right, down, hasCol, dead, player;
   PVector[] points = new PVector[16];
-  /*Wall[] sider;*/
 
+  //constructor for en tank
   Tank(PVector pos, int life, int lifeBarX, String lifeBarNavn, int r, int g, int b, int playerType) {
     if (playerType == 0) {
       force = 0.3;
@@ -50,13 +50,9 @@ class Tank {
     points[13] = new PVector(rad/2, -rad/4);
     points[14] = new PVector(-rad/4, rad/2);
     points[15] = new PVector(-rad/2, -rad/4);
-    /*sider = new Wall[4];
-     sider[0] = new Wall(points[0].copy(), new PVector(points[1].copy().sub(points[0]).x, points[1].copy().sub(points[0]).y));
-     sider[1] = new Wall(points[1].copy(), new PVector(points[2].copy().sub(points[1]).x, points[2].copy().sub(points[1]).y));
-     sider[2] = new Wall(points[2].copy(), new PVector(points[3].copy().sub(points[2]).x, points[3].copy().sub(points[2]).y));
-     sider[3] = new Wall(points[3].copy(), new PVector(points[0].copy().sub(points[3]).x, points[0].copy().sub(points[3]).y));*/
   }
 
+  //funktion der viser tanken
   void render() {
     pushMatrix();
     rectMode(CENTER);
@@ -73,7 +69,8 @@ class Tank {
      line(sider[i].pos.x+pos.x, sider[i].pos.y+pos.y, sider[i].pos.x+sider[i].dir.x+pos.x, sider[i].pos.y+sider[i].dir.y+pos.y);
      }*/
   }
-
+  
+  //funktion der opdatere tankens position
   void update() {
     hasCol = false;
     if (canRotate()) {
@@ -99,6 +96,7 @@ class Tank {
     lastShot--;
   }
 
+  //funktion der udregner den neste position for et punket på tanken
   PVector nextPos(PVector pos) {
     PVector cdir = dir.copy(), cvel = vel.copy(), position = pos.copy();
     if (canRotate()) {
@@ -120,6 +118,7 @@ class Tank {
     return position;
   }
 
+  //funktion der udregner om tanken kan rotere eller ej
   boolean canRotate() {
     Wall w;
     for (int m = 0; m < mure.size(); m++) {
@@ -164,6 +163,7 @@ class Tank {
     return true;
   }
 
+  //funktion der ser om tanken colliderer med murene
   void collision() {
     Wall w;
     if (up) {
@@ -206,6 +206,7 @@ class Tank {
     }
   }
 
+  //funktion der skyder et skud ud fra tanken
   void shoot(boolean fromPlayer) {
     if (lastShot <= 0) {
       //skudList.add(new Skud(new PVector(this.pos.x + dir.copy().setMag(rad/2+height/120).x, this.pos.y + dir.copy().setMag(rad/2+height/120).y), new PVector(dir.x, dir.y), true));
@@ -214,6 +215,7 @@ class Tank {
     }
   }
 
+  //funktion der viser tankens liv
   void lifespan() {
     int lifePercentage;
     String currentLife;
