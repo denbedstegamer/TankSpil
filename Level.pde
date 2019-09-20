@@ -30,6 +30,9 @@ class Level {
 
   Level createLevel(int i) {
     switch(i) {
+    case 0:
+      return createLevel0();
+
     case 1:
       return createLevel3();
 
@@ -101,26 +104,26 @@ class Level {
     tankList.add(new Tank(new PVector(gameScreen+gameWidth/6, gameScreen+gameHeight*7/12), 3000, width-width/10-300, "Player 2", 0, 255, 0, true));
 
     g.createEnemy(new PVector(width-gameScreen-gameWidth/6, gameScreen+gameHeight/6));
-    
-    
+
+
     b.add(new Block(gameScreen, gameScreen, width-gameScreen, gameScreen+wallWidth, false, false, false, true));
     b.add(new Block(gameScreen, gameScreen, gameScreen+wallWidth, height-gameScreen, false, false, true, false));
     b.add(new Block(gameScreen, height-gameScreen-wallWidth, width-gameScreen, height-gameScreen, true, false, false, false));
     b.add(new Block(width-gameScreen-wallWidth, gameScreen, width-gameScreen, height-gameScreen, false, true, false, false));
-    
+
     b.add(new Block(gameScreen+gameWidth*3/7-wallWidth, gameScreen+gameHeight*1/7, gameScreen+gameWidth*3/7, gameScreen+gameHeight*3/7, true, true, true, false));
     b.add(new Block(gameScreen+gameWidth*4/7, gameScreen+gameHeight*1/7, gameScreen+gameWidth*4/7+wallWidth, gameScreen+gameHeight*3/7, true, true, true, false));
     b.add(new Block(gameScreen+gameWidth*1/7, gameScreen+gameHeight*3/7-wallWidth, gameScreen+gameWidth*3/7, gameScreen+gameHeight*3/7, true, true, false, true));
     b.add(new Block(gameScreen+gameWidth*4/7, gameScreen+gameHeight*3/7-wallWidth, gameScreen+gameWidth*6/7, gameScreen+gameHeight*3/7, true, false, true, true));
-    b.add(new Block(gameScreen+gameWidth*3/7, gameScreen+gameHeight*4/7, gameScreen+gameWidth*3/7-wallWidth, gameScreen+gameHeight*6/7, true, true, false, true));
-    b.add(new Block(gameScreen+gameWidth*4/7, gameScreen+gameHeight*4/7, gameScreen+gameWidth*4/7+wallWidth, gameScreen+gameHeight*6/7, true, false, true, true));
-    b.add(new Block(gameScreen+gameWidth*1/7, gameScreen+gameHeight*4/7, gameScreen+gameWidth*3/7, gameScreen+gameHeight*4/7+wallWidth, false, true, true, true));
-    b.add(new Block(gameScreen+gameWidth*4/7, gameScreen+gameHeight*4/7, gameScreen+gameWidth*6/7, gameScreen+gameHeight*4/7+wallWidth, false, true, true, true));
-    
+    b.add(new Block(gameScreen+gameWidth*3/7-wallWidth, gameScreen+gameHeight*4/7, gameScreen+gameWidth*3/7, gameScreen+gameHeight*6/7, false, true, true, true));
+    b.add(new Block(gameScreen+gameWidth*4/7, gameScreen+gameHeight*4/7, gameScreen+gameWidth*4/7+wallWidth, gameScreen+gameHeight*6/7, false, true, true, true));
+    b.add(new Block(gameScreen+gameWidth*1/7, gameScreen+gameHeight*4/7, gameScreen+gameWidth*3/7, gameScreen+gameHeight*4/7+wallWidth, true, false, true, true));
+    b.add(new Block(gameScreen+gameWidth*4/7, gameScreen+gameHeight*4/7, gameScreen+gameWidth*6/7, gameScreen+gameHeight*4/7+wallWidth, true, false, true, true));
+
     g.currentLevel = 3;
     return new Level(b, g);
   }
-  
+
   Level createLevel0() {
     reset();
     ArrayList<Block> b = new ArrayList<Block>();
@@ -128,7 +131,7 @@ class Level {
     b.add(new Block(gameScreen, gameScreen, gameScreen+wallWidth, height-gameScreen, false, false, true, false));
     b.add(new Block(gameScreen, height-gameScreen-wallWidth, width-gameScreen, height-gameScreen, true, false, false, false));
     b.add(new Block(width-gameScreen-wallWidth, gameScreen, width-gameScreen, height-gameScreen, false, true, false, false));
-    
+
     g.currentLevel = 0;
     return new Level(b, g);
   }
