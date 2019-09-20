@@ -6,6 +6,7 @@ class Skud {
   PVector[] points;
   boolean shotFromPlayer;
 
+  //constructor for et skud
   Skud (PVector pos, PVector vel, boolean shotFromPlayer) {
     this.shotFromPlayer = shotFromPlayer;
     this.pos = pos;
@@ -17,7 +18,8 @@ class Skud {
     points[2] = new PVector(0, rad/2);
     points[3] = new PVector(-rad/2, 0);
   }
-
+  
+  //funktion der opdatere skuddets position og viser det på skærmen
   void update() {
     hasCol = false;
     collision();
@@ -72,10 +74,12 @@ class Skud {
     ellipse(pos.x, pos.y, rad, rad);
   }
 
+  //funktion der udregner den neste position for et punket på skuddet
   PVector nextPos(PVector p) {
     return p.copy().add(vel);
   }
 
+  //funktion der ser om skuddet colliderer med murene
   void collision() {
     Wall w;
     for (int m = 0; m < mure.size(); m++) {
@@ -114,6 +118,7 @@ class Skud {
     }
   }
 
+  //funktion der ser om skuddet kolliderer med en tank
   boolean shotPlayer(Tank t) {
     PVector w;
     if (t.life > 0) {
