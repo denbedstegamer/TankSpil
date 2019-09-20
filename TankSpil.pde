@@ -69,10 +69,10 @@ void keyPressed() {
   }
 
   if ((key == 'm' || key == 'M') && tankList.get(0).life > 0) {
-    tankList.get(0).shoot(true);
+    tankList.get(0).shoot(tankList.get(0).player);
   }
   if ((key == 'c' || key == 'C') && tankList.get(1).life > 0) {
-    tankList.get(1).shoot(true);
+    tankList.get(1).shoot(tankList.get(1).player);
   }
   if (key == 'w' || key == 'W') {
     tankList.get(1).up = true;

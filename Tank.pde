@@ -4,17 +4,24 @@ class Tank {
   int life, lifeBarX, startLife, r, g, b;
   String lifeBarNavn;
   float angle, rad, force, rotationForce = PI/42, lastShot;
-  boolean up, left, right, down, hasCol, dead;
+  boolean up, left, right, down, hasCol, dead, player;
   PVector[] points = new PVector[16];
   /*Wall[] sider;*/
 
-  Tank(PVector pos, int life, int lifeBarX, String lifeBarNavn, int r, int g, int b, boolean player) {
-    if (player) {
+  Tank(PVector pos, int life, int lifeBarX, String lifeBarNavn, int r, int g, int b, int playerType) {
+    if (playerType == 0) {
       force = 0.3;
-    } else {
+      player = true;
+    }
+    if(playerType == 1){
       force = 0.1;
       up = true;
       rotationForce = PI/82;
+      player = false;
+    }
+    if (playerType == 2) {
+      force = 0.3;
+      player = false;
     }
     this.life = life;
     startLife = life;

@@ -24,21 +24,46 @@ class Skud {
     if (!hasCol) {
       pos = nextPos(pos);
     }
-    if (!shotFromPlayer) {
-      for (int i = 0; i < tankList.size(); i++) {
-        if (shotPlayer(tankList.get(i))) {
-          if (tankList.get(i).life > 0) {
-            tankList.get(i).life -= tankList.get(i).startLife/2;
+    if (g.coop) {
+      if (!shotFromPlayer) {
+        for (int i = 0; i < tankList.size(); i++) {
+          if (shotPlayer(tankList.get(i))) {
+            if (tankList.get(i).life > 0) {
+              life = 1000;
+              tankList.get(i).life -= tankList.get(i).startLife/2;
+            }
+          }
+        }
+      } else {
+        for (int i = 0; i < g.enemies.size(); i++) {
+          if (shotPlayer(g.enemies.get(i))) {
+            life = 1000;
+            g.enemies.get(i).life = 0;
           }
         }
       }
     } else {
-      for (int i = 0; i < g.enemies.size(); i++) {
-        if (shotPlayer(g.enemies.get(i))) {
-          g.enemies.get(i).life = 0;
+      if (!shotFromPlayer) {
+        for (int i = 0; i < tankList.size(); i++) {
+          if (shotPlayer(tankList.get(i)) && tankList.get(i).player) {
+            if (tankList.get(i).life > 0) {
+              life = 1000;
+              tankList.get(i).life -= tankList.get(i).startLife/2;
+            }
+          }
+        }
+      } else {
+        for (int i = 0; i < tankList.size(); i++) {
+          if (shotPlayer(tankList.get(i)) && !tankList.get(i).player) {
+            if (tankList.get(i).life > 0) {
+              life = 1000;
+              tankList.get(i).life -= tankList.get(i).startLife/2;
+            }
+          }
         }
       }
     }
+
     life++;
     if (life >= 180) {
       dead = true;
@@ -95,13 +120,8 @@ class Skud {
       for (int m = 0; m <= 15; m++) {
         w = t.points[m];
         if (dist(w.x+t.pos.x, w.y+t.pos.y, pos.x, pos.y) < rad/2) {
-          life = 1000;
           return true;
         }
-      }
-      if (dist(t.pos.x, t.pos.y, pos.x, pos.y) < rad/2) {
-        life = 1000;
-        return true;
       }
     }
     return false;

@@ -71,7 +71,7 @@ class Game {
   }
 
   void aim() {
-    Tank t = new Tank(new PVector(), 0, 0, "Player 1", 0, 0, 0, true);
+    Tank t = new Tank(new PVector(), 0, 0, "Player 1", 0, 0, 0, 0);
     if (tankList.get(1).life <= 0) {
       t = tankList.get(0);
     }
@@ -137,7 +137,7 @@ class Game {
   }
 
   void createEnemy(PVector pos) {
-    Tank enemy1 = new Tank(pos, 3000, width-width/10-300, "Player 2", 40, 40, 40, false) {
+    Tank enemy1 = new Tank(pos, 3000, width-width/10-300, "Player 2", 40, 40, 40, 1) {
       @Override
         public void shoot(boolean shotFromPlayer) {
         skudList.add(new Skud(new PVector(this.pos.x, this.pos.y), new PVector(dir.x, dir.y), shotFromPlayer));
@@ -147,10 +147,13 @@ class Game {
   }
 
   Tank returnEnemy(PVector pos) {
-    Tank enemy1 = new Tank(pos, 3000, width-width/10-300, "Player 2", 40, 40, 40, true) {
+    Tank enemy1 = new Tank(pos, 3000, width-width/10-300, "Player 2", 0, 255, 0, 2) {
       @Override
         public void shoot(boolean shotFromPlayer) {
-        skudList.add(new Skud(new PVector(this.pos.x, this.pos.y), new PVector(dir.x, dir.y), shotFromPlayer));
+        if (lastShot <= 0) {
+          skudList.add(new Skud(new PVector(this.pos.x, this.pos.y), new PVector(dir.x, dir.y), shotFromPlayer));
+          lastShot = 15;
+        }
       }
     };
     return enemy1;
