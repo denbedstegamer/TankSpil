@@ -2,8 +2,10 @@ class Game {
   int currentLevel = 1;
   Level l = new Level(new ArrayList<Block>(), this);
   ArrayList<Tank> enemies;
+  boolean coop;
 
-  Game() {
+  Game(boolean coop) {
+    this.coop = coop;
     mure = new ArrayList<Wall>();
     skudList = new ArrayList<Skud>();
     tankList = new ArrayList<Tank>();
@@ -44,7 +46,7 @@ class Game {
     }
 
     if (tankList.get(0).life <= 0 && tankList.get(1).life <= 0) {
-      //TODO make game over screen
+      gamestate = 6;
     }
     if (enemies.size() == 0) {
       l.createLevel(currentLevel+1);
@@ -102,6 +104,9 @@ class Game {
     for (int i = 0; i < enemies.size(); i++) {
       enemies.get(i).render();
     }
+    for (int i = 0; i < blockList.size(); i++) {
+      blockList.get(i).render();
+    }
     for (int i = 0; i < mure.size(); i++) {
       mure.get(i).render();
     }
@@ -113,31 +118,6 @@ class Game {
 
   void createEnemy(PVector pos) {
     Tank enemy1 = new Tank(pos, 3000, width-width/10-300, "Player 2", 40, 40, 40, false) {
-      @Override
-        public void update() {
-        hasCol = false;
-        if (canRotate()) {
-          if (left) {
-            dir.rotate(-rotationForce);
-            angle -= rotationForce;
-            for (int j = 0; j <= 15; j++) {
-              points[j].rotate((-rotationForce));
-            }
-          }
-          if (right) {
-            dir.rotate(rotationForce);
-            angle += rotationForce;
-            for (int j = 0; j <= 15; j++) {
-              points[j].rotate((rotationForce));
-            }
-          }
-        }
-        collision();
-        if (!hasCol) {
-          pos = nextPos(pos);
-        }
-      }
-
       @Override
         public void shoot() {
         skudList.add(new Skud(new PVector(this.pos.x, this.pos.y), new PVector(dir.x, dir.y), false));
