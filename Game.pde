@@ -114,31 +114,6 @@ class Game {
   void createEnemy(PVector pos) {
     Tank enemy1 = new Tank(pos, 3000, width-width/10-300, "Player 2", 40, 40, 40, false) {
       @Override
-        public void update() {
-        hasCol = false;
-        if (canRotate()) {
-          if (left) {
-            dir.rotate(-rotationForce);
-            angle -= rotationForce;
-            for (int j = 0; j <= 15; j++) {
-              points[j].rotate((-rotationForce));
-            }
-          }
-          if (right) {
-            dir.rotate(rotationForce);
-            angle += rotationForce;
-            for (int j = 0; j <= 15; j++) {
-              points[j].rotate((rotationForce));
-            }
-          }
-        }
-        collision();
-        if (!hasCol) {
-          pos = nextPos(pos);
-        }
-      }
-
-      @Override
         public void shoot() {
         skudList.add(new Skud(new PVector(this.pos.x, this.pos.y), new PVector(dir.x, dir.y), false));
       }
