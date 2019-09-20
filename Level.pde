@@ -34,7 +34,7 @@ class Level {
       return createLevel0();
 
     case 1:
-      return createLevel3();
+      return createLevel1();
 
     case 2:
       return createLevel2();
@@ -100,8 +100,8 @@ class Level {
   Level createLevel3() {
     reset();
     ArrayList<Block> b = new ArrayList<Block>();
-    tankList.add(new Tank(new PVector(gameScreen+gameWidth/6, gameScreen+gameHeight*1/3), 3000, width/18, "Player 1", 255, 0, 0, true));
-    tankList.add(new Tank(new PVector(gameScreen+gameWidth/6, gameScreen+gameHeight*7/12), 3000, width-width/10-300, "Player 2", 0, 255, 0, true));
+    tankList.add(new Tank(new PVector(gameScreen+gameWidth*1/3, gameScreen+gameHeight*1/4), 3000, width/18, "Player 1", 255, 0, 0, true));
+    tankList.add(new Tank(new PVector(gameScreen+gameWidth*2/3, gameScreen+gameHeight*3/4), 3000, width-width/10-300, "Player 2", 0, 255, 0, true));
 
     g.createEnemy(new PVector(width-gameScreen-gameWidth/6, gameScreen+gameHeight/6));
 
