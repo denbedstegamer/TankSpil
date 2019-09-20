@@ -211,6 +211,7 @@ class Tank {
     int lifePercentage;
     String currentLife;
     rectMode(CORNER);
+    textAlign(CORNER);
     fill(255);
     strokeWeight(4);
     rect(lifeBarX, height/10, (startLife*300)/startLife, 25);

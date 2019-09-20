@@ -2,8 +2,10 @@ class Game {
   int currentLevel = 1;
   Level l = new Level(new ArrayList<Block>(), this);
   ArrayList<Tank> enemies;
+  boolean coop;
 
-  Game() {
+  Game(boolean coop) {
+    this.coop = coop;
     mure = new ArrayList<Wall>();
     skudList = new ArrayList<Skud>();
     tankList = new ArrayList<Tank>();

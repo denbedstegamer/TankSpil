@@ -11,7 +11,7 @@ ArrayList<Block> blockList;
 void setup() {
   fullScreen();
   frameRate(60);
-  g = new Game();
+  g = new Game(true);
   ts = new Tscreen();
   es = new Escreen();
   sett = new Settings(g);
