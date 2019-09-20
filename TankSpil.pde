@@ -19,51 +19,54 @@ void setup() {
 }
 
 void draw() {
+  // Gamestate cases som bliver kaldt i de andre classes
   switch (gamestate) {
-  case 0:
+  case 0: //title screen
     ts.display();
     break;
 
-  case 1:
+  case 1: //coop mode
     g.update();
     break;
 
-  case 2:
+  case 2: //settings skærm
     sett.display();
     ts.escape();
     break;
 
-  case 3:
+  case 3: //pvp mode
     g.update();
     break;
 
-  case 4:
+  case 4: //controls fra settings skærmen
     sett.controls();
     ts.escape();
     break;
 
-  case 5:
+  case 5: //colors fra settings skærmen
     sett.colors();
     break;
 
-  case 6:
+  case 6: //gamestate for når man dør i coop mode
     es.deathdisplay();
     break;
   
-  case 7:
+  case 7: //end screen til når man vinder coop mode
     es.enddisplay();
     break;
     
-  case 8:
+  case 8: //end screen til når player 2 vinder
     es.enddisplay("2");
     break;
   
-  case 9:
+  case 9: //end screen til når player 1 vinder
     es.enddisplay("1");
     break;
   }
 }
 
+
+//KeyPressed og KeyReleased til at kunne bevæge de tanks der bliver lavet på samme tid.
 void keyPressed() {
   if (key == CODED) {
     if (keyCode == UP) {

@@ -3,7 +3,7 @@ class Game {
   Level l = new Level(new ArrayList<Block>(), this);
   ArrayList<Tank> enemies;
   boolean coop;
-
+//en boolean som starter level 1 hvis coop knappen er blevet trykket, ellers starter den pvp når den bliver kaldt fra pvp knappen
   Game(boolean coop) {
     this.coop = coop;
     mure = new ArrayList<Wall>();
@@ -17,7 +17,8 @@ class Game {
       l = l.createLevel(0);
     }
   }
-
+//funktionen der tjekker hvordan det går i spillet, om man har mistet liv eller dræbt de andre
+//den opdaterer gamestate til en vilkårlig end screen når målene er opfyldt
   void update() {
     if (coop) {
       for (int i = 0; i < tankList.size(); i++) {
@@ -79,6 +80,8 @@ class Game {
     }
     render();
   }
+  
+  //giver modstanderene mulighed for at sigte efter spillerne for at gøre det lidt sværre
   void aim() {
     Tank t = new Tank(new PVector(), 0, 0, "Player 1", 0, 0, 0, 0);
     if (tankList.get(1).life <= 0) {
@@ -116,6 +119,7 @@ class Game {
     }
   }
 
+//funktionen der starter levelet
   void render() {
     background(255);
     textAlign(CENTER);
@@ -145,6 +149,7 @@ class Game {
     ts.escape();
   }
 
+//en funktion der bliver brugt til at spawne modstanderene og fjerne dem igen hvis de bliver skudt af en spiller
   void createEnemy(PVector pos) {
     Tank enemy1 = new Tank(pos, 3000, width-width/10-300, "Player 2", 40, 40, 40, 1) {
       @Override

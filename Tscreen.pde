@@ -1,5 +1,7 @@
 class Tscreen {
 
+  //knapper til titlescreen gamestaten, en til coop, pvp og settings. De skifter hver især til de tisvarende gamestates
+  //starter et nyt spil når den bliver trykket 
   Button coop = new Button(width/2-width/6, height/4, width/3, height/8) {
     
     @Override

@@ -2,8 +2,9 @@ class Settings {
 
   Game g;
   int r, green, b;
-  PImage img;
+  PImage img; //billedfil til controls skærmen for at reducere lag og gøre det pænere
 
+//knapperne til controls og colors, skifter til de tilsvarende gamestates
   Button controls = new Button(width/2-width/6, height/4, width/3, height/8) {
     @Override
       public void action() {
@@ -22,7 +23,7 @@ class Settings {
     }
   };
 
-
+//settings skærmen, viser controls og colors knappen
   void display() {
     background(0);
     fill(230);
@@ -46,7 +47,7 @@ class Settings {
     image(img, 0, 0, width, height);
     
   }
-
+//6 knapper til at skifte spillerenes farver, 3 farver til hver spiller. Lyser op når trykket, og sætter de andre farvers værdi til false så de ikke gælder mere
   Button p1c1 = new Button(width/2-width/3, height/4-height/16, width/6, height/16) {
     @Override
       public void action() {
@@ -202,7 +203,7 @@ class Settings {
       }
     }
   };
-
+//funktion der viser alle knapperne for at skifte farver og kalder dem når de bliver trykket
   void colors() {
     background(0);
     

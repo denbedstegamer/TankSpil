@@ -1,5 +1,6 @@
 class Block{
   
+  //værdierne til at lave nye mure/vægge
   float x, y, xl, yl;
   
   Block(float x1, float y1, float x2, float y2, boolean col1, boolean col2, boolean col3, boolean col4){
@@ -13,6 +14,7 @@ class Block{
     mure.add(new Wall(new PVector(x1, y2), new PVector(x2-x1, 0), col4));
   }
   
+  //en funktion til at tegne murene/væggene
   void render(){
     rectMode(CORNER);
     fill(0);

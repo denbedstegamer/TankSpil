@@ -9,7 +9,7 @@ class Level {
       blockList.add(b.get(i));
     }
   }
-
+//Genstarter værdier
   void reset() {
     for (int i = blockList.size(); i > 0; i--) {
       blockList.remove(i-1);
@@ -27,7 +27,7 @@ class Level {
       g.enemies.remove(i-1);
     }
   }
-
+//skifter mellem levels når man vinder det forrige
   Level createLevel(int i) {
     switch(i) {
     case 0:
@@ -47,6 +47,8 @@ class Level {
     }
   }
 
+//Laver de forskellige levels på de forskellige tidspunkter, bruger de forskellige funktioner fra de andre classes for at angive hvor
+//de forskellige ting, som tanks, modstandere og vægge skal være i de forskellige levels.
   Level createLevel1() {
     reset();
     ArrayList<Block> b = new ArrayList<Block>();
