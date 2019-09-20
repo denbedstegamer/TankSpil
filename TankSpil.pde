@@ -7,6 +7,7 @@ ArrayList<Skud> skudList;
 ArrayList<Wall> mure;
 ArrayList<Tank> tankList;
 ArrayList<Block> blockList;
+int r1 = 255, g1, b1, r2, g2 = 255, b2;
 
 void setup() {
   fullScreen();
