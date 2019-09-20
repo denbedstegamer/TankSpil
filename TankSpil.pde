@@ -49,6 +49,18 @@ void draw() {
   case 6:
     es.deathdisplay();
     break;
+  
+  case 7:
+    es.enddisplay();
+    break;
+    
+  case 8:
+    es.enddisplay("2");
+    break;
+  
+  case 9:
+    es.enddisplay("1");
+    break;
   }
 }
 

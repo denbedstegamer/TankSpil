@@ -63,13 +63,22 @@ class Game {
       }
 
       if (enemies.size() == 0) {
-        l.createLevel(currentLevel+1);
+        if (currentLevel != 3) {
+          l.createLevel(currentLevel+1);
+        } else {
+          gamestate = 7;
+        }
+      }
+    } else {
+      if (tankList.get(0).life <= 0){
+        gamestate = 8;
+      }
+      if(tankList.get(1).life <= 0) {
+        gamestate = 9;
       }
     }
-
     render();
   }
-
   void aim() {
     Tank t = new Tank(new PVector(), 0, 0, "Player 1", 0, 0, 0, 0);
     if (tankList.get(1).life <= 0) {

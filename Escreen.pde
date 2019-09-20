@@ -43,4 +43,20 @@ class Escreen {
     text("play again", width/2, height-height/6);
   }
   
+  void enddisplay(String winner){
+    background(0);
+    fill(127);
+    playagain.display();
+    playagain.pressed();
+    
+    textAlign(CENTER);
+    textSize(200);
+    fill(255,255,0);
+    text("Player " + winner + " WINS", width/2, height/2);
+    
+    textSize(75);
+    fill(250);
+    text("play again", width/2, height-height/6);
+  }
+  
 }
