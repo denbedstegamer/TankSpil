@@ -102,6 +102,9 @@ class Game {
     for (int i = 0; i < enemies.size(); i++) {
       enemies.get(i).render();
     }
+    for (int i = 0; i < blockList.size(); i++) {
+      blockList.get(i).render();
+    }
     for (int i = 0; i < mure.size(); i++) {
       mure.get(i).render();
     }

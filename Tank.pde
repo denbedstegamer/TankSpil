@@ -3,7 +3,7 @@ class Tank {
   PVector dir, pos, vel;
   int life, lifeBarX, startLife, r, g, b;
   String lifeBarNavn;
-  float angle, rad, force, rotationForce = PI/42;
+  float angle, rad, force, rotationForce = PI/42, lastShot;
   boolean up, left, right, down, hasCol, dead;
   PVector[] points = new PVector[16];
   /*Wall[] sider;*/
@@ -85,22 +85,11 @@ class Tank {
         }
       }
     }
-    /*if (up) {
-     vel.add(dir.copy().mult(force));
-     }
-     if (down) {
-     vel.sub(dir.copy().mult(force));
-     }
-     vel.mult(0.9);
-     pos.add(vel);*/
     collision();
     if (!hasCol) {
       pos = nextPos(pos);
     }
-    /*sider[0] = new Wall(points[0].copy(), new PVector(points[1].copy().sub(points[0]).x, points[1].copy().sub(points[0]).y));
-     sider[1] = new Wall(points[1].copy(), new PVector(points[2].copy().sub(points[1]).x, points[2].copy().sub(points[1]).y));
-     sider[2] = new Wall(points[2].copy(), new PVector(points[3].copy().sub(points[2]).x, points[3].copy().sub(points[2]).y));
-     sider[3] = new Wall(points[3].copy(), new PVector(points[0].copy().sub(points[3]).x, points[0].copy().sub(points[3]).y));*/
+    lastShot--;
   }
 
   PVector nextPos(PVector pos) {
@@ -211,8 +200,11 @@ class Tank {
   }
 
   void shoot() {
-    //skudList.add(new Skud(new PVector(this.pos.x + dir.copy().setMag(rad/2+height/120).x, this.pos.y + dir.copy().setMag(rad/2+height/120).y), new PVector(dir.x, dir.y), true));
-    skudList.add(new Skud(new PVector(this.pos.x, this.pos.y), new PVector(dir.x, dir.y), true));
+    if (lastShot <= 0) {
+      //skudList.add(new Skud(new PVector(this.pos.x + dir.copy().setMag(rad/2+height/120).x, this.pos.y + dir.copy().setMag(rad/2+height/120).y), new PVector(dir.x, dir.y), true));
+      skudList.add(new Skud(new PVector(this.pos.x, this.pos.y), new PVector(dir.x, dir.y), true));
+      lastShot = 15;
+    }
   }
 
   void lifespan() {
