@@ -43,7 +43,7 @@ class Settings {
   void controls() {
     background(0);
     img = loadImage("TankSpilControls.png");
-    image(img, 0, 0);
+    image(img, 0, 0, width, height);
     
   }
 
